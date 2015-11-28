@@ -17,7 +17,7 @@ public class LongTerm extends Task {
 	 * @param beginningDate
 	 */
 	public LongTerm(String title, String description, String type, 
-			Enum<Importance> importance, LocalDate endingDate, LocalDate beginningDate) {
+			Importance importance, LocalDate beginningDate, LocalDate endingDate) {
 		super(title, description, type, importance, endingDate);
 		this.beginningDate = beginningDate;
 		this.actualProgress = 0;

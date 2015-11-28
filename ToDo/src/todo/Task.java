@@ -2,15 +2,12 @@ package todo;
 
 import java.time.*;
 
-/**
- * @author oxedora
- *
- */
+
 public abstract class Task {
 	String 	title;
 	String 	description;
 	String 	type;
-	Enum<Importance> importance;
+	Importance importance;
 	LocalDate creationDate;
 	LocalDate endingDate;
 	Boolean isDone;
@@ -21,7 +18,18 @@ public abstract class Task {
 	 * @param type
 	 * @param endingDate
 	 */
-	public Task(String title, String description, String type, Enum<Importance> importance, LocalDate endingDate) {
+	public Task(String title, String description, String type, Importance importance,
+			LocalDate endingDate) throws TaskException{
+		
+		if(endingDate.isBefore(LocalDate.now())){
+			throw new TaskException(endingDate.toString()+" is before creationDate : "+this.creationDate);
+		}
+		
+		if(title == null){
+			throw new TaskException("Get a real name u junk");
+		}
+		
+		
 		this.title = title;
 		this.description = description;
 		this.type = type;
@@ -37,14 +45,22 @@ public abstract class Task {
 	 * @return
 	 */
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	/**
 	 * @param title
 	 */
-	public void setTitle(String title) { // exception si nul
+	public void setTitle(String title) throws TaskException{ // exception si nul
 		// exception si isDone
+		if(title == null){
+			throw new TaskException("Get a real name u Junk");
+		}
+		
+		if(this.isDone){
+			throw new TaskException("Cannot modify ended tasks");
+		}
+		
 			this.title = title;
 	}
 
@@ -58,7 +74,10 @@ public abstract class Task {
 	/**
 	 * @param description
 	 */
-	public void setDescription(String description) {
+	public void setDescription(String description) throws TaskException{
+		if(this.isDone){
+			throw new TaskException("Cannot modify ended tasks");
+		}
 		this.description = description;
 	}
 
@@ -72,11 +91,15 @@ public abstract class Task {
 	/**
 	 * @param type
 	 */
-	public void setType(String type) {
-		// exception si isDone
+	public void setType(String type) throws TaskException{
+		// exception si isDone?
+		if(this.isDone){
+			throw new TaskException("Cannot modify ended tasks");
+		}
+		
 		this.type = type;
 	}
-
+	
 	/**
 	 * @return
 	 */
@@ -94,8 +117,14 @@ public abstract class Task {
 	/**
 	 * @param endingDate
 	 */
-	public void setEndingDate(LocalDate endingDate) { // exception si < creationDate & nul
+	public void setEndingDate(LocalDate endingDate) throws TaskException{ // exception si < creationDate & nul
 		// exception si isDone
+		if(endingDate.isBefore(creationDate)){
+			throw new TaskException(endingDate.toString()+" is before creationDate : "+this.creationDate);
+		}
+		if(this.isDone){
+			throw new TaskException("Cannot modify ended tasks");
+		}
 		this.endingDate = endingDate;
 	}
 
@@ -105,6 +134,21 @@ public abstract class Task {
 	public Boolean getIsDone() {
 		return isDone;
 	}
+
+	/**
+	 * @param importance
+	 */
+	public void setImportance(Importance importance) {
+		this.importance = importance;
+	}
+
+	/**
+	 * @return
+	 */
+	public Importance getImportance() {
+		return importance;
+	}
+
 
 	/**
 	 * @param isDone

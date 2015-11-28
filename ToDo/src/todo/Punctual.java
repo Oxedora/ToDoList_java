@@ -10,7 +10,7 @@ public class Punctual extends Task {
 	 * @param type
 	 * @param endingDate
 	 */
-	public Punctual(String title, String description, String type, Enum<Importance> importance, LocalDate endingDate) {
+	public Punctual(String title, String description, String type, Importance importance, LocalDate endingDate) {
 		super(title, description, type, importance, endingDate);
 	}
 	
