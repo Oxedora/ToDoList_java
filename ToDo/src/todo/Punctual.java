@@ -9,8 +9,10 @@ public class Punctual extends Task {
 	 * @param description
 	 * @param type
 	 * @param endingDate
+	 * @throws TaskException 
 	 */
-	public Punctual(String title, String description, String type, Importance importance, LocalDate endingDate) {
+	public Punctual(String title, String description, String type, Importance importance,
+			LocalDate endingDate) throws TaskException {
 		super(title, description, type, importance, endingDate);
 	}
 	
@@ -21,7 +23,6 @@ public class Punctual extends Task {
 		return this.getEndingDate().isAfter(LocalDate.now());
 	}
 
-	@Override
 	public LocalDate getIntEndingDate() {
 		return this.getEndingDate();
 	}

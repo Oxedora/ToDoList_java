@@ -15,10 +15,17 @@ public class LongTerm extends Task {
 	 * @param type
 	 * @param endingDate
 	 * @param beginningDate
+	 * @throws TaskException 
 	 */
 	public LongTerm(String title, String description, String type, 
-			Importance importance, LocalDate beginningDate, LocalDate endingDate) {
+			Importance importance, LocalDate beginningDate, LocalDate endingDate) throws TaskException {
 		super(title, description, type, importance, endingDate);
+		
+		if(beginningDate.isAfter(endingDate)){
+			throw new TaskException(endingDate.toString()+" is before beginning date : "
+		+beginningDate.toString());
+		}
+		
 		this.beginningDate = beginningDate;
 		this.actualProgress = 0;
 	}
@@ -34,8 +41,14 @@ public class LongTerm extends Task {
 
 	/**
 	 * @param beginningDate
+	 * @throws TaskException 
 	 */
-	public void setBeginningDate(LocalDate beginningDate) {
+	public void setBeginningDate(LocalDate beginningDate) throws TaskException {
+		if(beginningDate.isAfter(this.endingDate) || beginningDate.isBefore(this.creationDate)){
+			throw new TaskException("beginningDate must be between creationDate : "+
+		this.creationDate.toString()+" and endingDate : "+this.endingDate.toString());
+		}
+		
 		this.beginningDate = beginningDate;
 	}
 
@@ -49,7 +62,11 @@ public class LongTerm extends Task {
 	/**
 	 * @param actualProgress
 	 */
-	public void setActualProgress(int actualProgress) {
+	public void setActualProgress(int actualProgress) throws TaskException {
+		if(actualProgress < this.actualProgress || actualProgress > 100){
+			throw new TaskException("New actualProgress must be above actualProgress : "+this.actualProgress+
+					"and below or equal to 100");
+		}
 		this.actualProgress = actualProgress;
 	}
 

@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class TestToDo {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws TaskException {
 		LocalDate d1 = LocalDate.of(2015, 12, 14);
 		LocalDate d2 = LocalDate.of(2016, 1, 3);
 		LocalDate d3 = LocalDate.of(2016, 1, 10);

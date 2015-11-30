@@ -22,7 +22,8 @@ public abstract class Task {
 			LocalDate endingDate) throws TaskException{
 		
 		if(endingDate.isBefore(LocalDate.now())){
-			throw new TaskException(endingDate.toString()+" is before creationDate : "+this.creationDate);
+			throw new TaskException(endingDate.toString()+" is before creationDate : "
+		+this.creationDate);
 		}
 		
 		if(title == null){
@@ -157,8 +158,14 @@ public abstract class Task {
 		this.isDone = isDone;
 	}
 	
+	/**
+	 * @return
+	 */
 	public abstract Boolean isLate();
 	
+	/**
+	 * @return
+	 */
 	public abstract LocalDate getIntEndingDate();
 	
 }

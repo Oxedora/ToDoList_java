@@ -7,6 +7,9 @@ public class Organizer {
 	Vector<Task> finished;
 	Vector<String> typesList;
 	
+	/**
+	 * Default constructor
+	 */
 	public Organizer() {
 		this.inProgress = new Vector<Task>();
 		this.finished = new Vector<Task>();
@@ -14,31 +17,55 @@ public class Organizer {
 	}
 	
 	/**
-	 * @param t
+	 * @param inProgress
+	 * @param finished
+	 * @param typesList
 	 */
-	public void unfinishedToFinished(Task t){
-		if(this.inProgress.contains(t)){
-			this.inProgress.remove(t);
-			this.finished.add(t);
+	public Organizer(Vector<Task> inProgress, Vector<Task> finished, Vector<String> typesList) {
+		this.inProgress = inProgress;
+		this.finished = finished;
+		this.typesList = typesList;
+	}
+	
+	/**
+	 * @param t
+	 * @throws TaskException 
+	 */
+	public void unfinishedToFinished(Task t) throws TaskException{
+		if(!t.isDone){
+			throw new TaskException(t.getTitle()+" : this task is not done");
 		}
+		
+		if(!this.inProgress.contains(t)){
+			throw new TaskException(t.getTitle()+" : no such task in progress");
+		}
+	
+		this.inProgress.remove(t);
+		this.finished.add(t);
 	}
 
 	/**
 	 * @param newType
+	 * @throws TaskException 
 	 */
-	public void createType(String newType){
-		if(!this.typesList.contains(newType)){
-			this.typesList.add(newType);
+	public void createType(String newType) throws TaskException{
+		if(this.typesList.contains(newType)){
+			throw new TaskException("This type already exists");
 		}
+		
+		this.typesList.add(newType);
 	}
 	
 	/**
 	 * @param oldType
+	 * @throws TaskException 
 	 */
-	public void deleteType(String oldType){
+	public void deleteType(String oldType) throws TaskException{
 		if(this.typesList.contains(oldType)){
-			this.typesList.remove(oldType);
+			throw new TaskException(oldType+" : no such type");
 		}
+		
+			this.typesList.remove(oldType);
 		
 		for(Task t : inProgress){
 			if(t.getType() == oldType){
@@ -56,23 +83,26 @@ public class Organizer {
 	/**
 	 * @param oldType
 	 * @param newType
+	 * @throws TaskException 
 	 */
-	public void editType(String oldType, String newType){
-		if(this.typesList.contains(oldType)){
-			this.deleteType(oldType);
-			this.createType(newType);
-			for(Task t : inProgress){
-				if(t.getType() == oldType){
-					t.setType(newType);
-				}
+	public void editType(String oldType, String newType) throws TaskException{
+		if(!this.typesList.contains(oldType)){
+			throw new TaskException(oldType+" : no such type");
+		}
+
+		this.deleteType(oldType);
+		this.createType(newType);
+		for(Task t : inProgress){
+			if(t.getType() == oldType){
+				t.setType(newType);
 			}
-			
-			for(Task t : finished){
-				if(t.getType() == oldType){
-					t.setType(newType);
-				}
+		}
+
+		for(Task t : finished){
+			if(t.getType() == oldType){
+				t.setType(newType);
 			}
 		}
 	}
-
 }
+
