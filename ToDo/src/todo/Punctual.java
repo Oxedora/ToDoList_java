@@ -20,10 +20,14 @@ public class Punctual extends Task {
 	 * @return
 	 */
 	public Boolean isLate(){
-		return (this.isDone ? false : this.getEndingDate().isAfter(LocalDate.now()));
+		return (this.isDone ? false : LocalDate.now().isAfter(this.getEndingDate()));
 	}
 
 	public LocalDate getIntEndingDate() {
 		return this.getEndingDate();
+	}
+
+	public LocalDate getBeginningDate() {
+		return this.getCreationDate();
 	}
 }

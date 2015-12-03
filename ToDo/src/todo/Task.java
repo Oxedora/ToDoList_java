@@ -115,6 +115,8 @@ public abstract class Task {
 		return endingDate;
 	}
 	
+	public abstract LocalDate getBeginningDate();
+	
 	public String displayDate(LocalDate date){
 		return(date.getDayOfMonth()+"/"+date.getMonthValue()+"/"+date.getYear());
 	}
