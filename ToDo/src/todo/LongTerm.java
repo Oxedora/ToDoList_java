@@ -75,6 +75,7 @@ public class LongTerm extends Task {
 	 *
 	 */
 	public Boolean isLate() {
+		if(this.isDone){return false;}
 		if(LocalDate.now().isAfter(endingDate)) {return true;}
 		
 		long daysBetween = this.getBeginningDate().until(this.getEndingDate(), ChronoUnit.DAYS);

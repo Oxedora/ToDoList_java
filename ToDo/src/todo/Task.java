@@ -114,6 +114,10 @@ public abstract class Task {
 	public LocalDate getEndingDate() {
 		return endingDate;
 	}
+	
+	public String displayDate(LocalDate date){
+		return(date.getDayOfMonth()+"/"+date.getMonthValue()+"/"+date.getYear());
+	}
 
 	/**
 	 * @param endingDate
@@ -135,7 +139,7 @@ public abstract class Task {
 	public Boolean getIsDone() {
 		return isDone;
 	}
-
+	
 	/**
 	 * @param importance
 	 */

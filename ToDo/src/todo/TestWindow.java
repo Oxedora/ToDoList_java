@@ -17,13 +17,17 @@ public class TestWindow {
 				Importance.High, d2, d3);
 		Punctual t3 = new Punctual("Truc", "faire des trucs", "", 
 				Importance.Low, d4);
+		Punctual t4 = new Punctual("doneTask", "already done !", "",
+				Importance.Normal, d1);
 		
 		Organizer todo = new Organizer();
 		todo.inProgress.add(t1);
 		todo.inProgress.add(t2);
 		todo.inProgress.add(t3);
+		todo.finished.add(t4);
+		todo.finished.get(0).setIsDone(true);
 		
-		WindowOrganizer worg = new WindowOrganizer(todo.inProgress, todo.finished);
+		WindowOrganizer worg = new WindowOrganizer(todo.inProgress, todo.finished, todo.typesList);
 		
 	}
 }
