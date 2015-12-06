@@ -1,6 +1,8 @@
 package todo;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.Vector;
 
@@ -50,18 +52,26 @@ public class WindowOrganizer extends JFrame{
 		center.setLayout(new BorderLayout()); // to correctly display the information
 		
 		/************* Creating the low-level panels *************/
-		DisplayTasks inProgressTasks = new DisplayTasks(progressList, "Still alive..."); // display of tasks in progress
-		inProgressTasks.setBackground(Color.lightGray); // adding a color to distinguish it from other parts
+		DetailedTask detailedTask = new DetailedTask(
+				new ButtonPushed(progressList.get(0), progressList.get(0).getButtonText())
+				); // display details of the task chosen by the user
+		JScrollPane scrollDetail= new JScrollPane(detailedTask);
 		
-		DetailedTask detailedTask = new DetailedTask(progressList.get(0)); // display details of the task chosen by the user
-				
-		DisplayTasks doneTasks = new DisplayTasks(finishedList, "Dead tasks"); // display of done tasks
+		DisplayTasks inProgressTasks = new DisplayTasks(progressList, "Still alive...", detailedTask); // display of tasks in progress
+		inProgressTasks.setBackground(Color.lightGray); // adding a color to distinguish it from other parts
+		JScrollPane scrollProgress = new JScrollPane(inProgressTasks);
+		
+		DisplayTasks doneTasks = new DisplayTasks(finishedList, "Dead tasks", detailedTask); // display of done tasks
 		doneTasks.setBackground(Color.gray); // adding a color to distinguish it from other parts
+		JScrollPane scrollDone= new JScrollPane(doneTasks);
+
+		sortCB.addActionListener(new SortListener(progressList, inProgressTasks, detailedTask));
+		sortCB.addActionListener(new SortListener(finishedList, doneTasks, detailedTask));
 		
 		/**** Adding the low-level panels to the center panel ***/
-		center.add(inProgressTasks, BorderLayout.WEST); // Tasks in progress are displayed in the west side
-		center.add(detailedTask, BorderLayout.CENTER); // The detailed task is displayed in the center side
-		center.add(doneTasks, BorderLayout.EAST); // Done tasks are displayed in the east side
+		center.add(scrollProgress, BorderLayout.WEST); // Tasks in progress are displayed in the west side
+		center.add(scrollDetail, BorderLayout.CENTER); // The detailed task is displayed in the center side
+		center.add(scrollDone, BorderLayout.EAST); // Done tasks are displayed in the east side
 		
 		
 		/*********************************************************/
@@ -89,11 +99,12 @@ public class WindowOrganizer extends JFrame{
 		theseAreTypes.setForeground(Color.BLACK);
 		
 		// allow the user to create new tasks
-		Button addTask = new Button("Give life, like god... or Frankenstein");
+		Button addTask = new Button("Give life, like god... or Dr. Frankenstein");
 		addTask.setBackground(Color.WHITE);
 		addTask.setForeground(Color.ORANGE);
+		addTask.addActionListener(new AddTaskListener(progressList, inProgressTasks, detailedTask));
 		
-		// allow the user to create new tasks
+		// allow the user to delete tasks
 		Button delTask = new Button("Doom a task");
 		delTask.setBackground(Color.BLACK);
 		delTask.setForeground(Color.RED);
@@ -108,11 +119,17 @@ public class WindowOrganizer extends JFrame{
 		/******************** THE MAIN FRAME *********************/
 		/*********************************************************/
 		
+		
 		/**** Adding all the previous panels to the main frame ***/
 		this.add(north, BorderLayout.NORTH); // adding the north panel to the north part of the main frame
 		this.add(center, BorderLayout.CENTER); // adding the center panel to the center part of the main frame
 		this.add(south, BorderLayout.SOUTH); // adding the south panel to the south part of the main frame
 
+		
+		
 		this.setVisible(true); // Display all contents of the frame (has to be done in last, but no least !)
 	}
+
+	
+	
 }

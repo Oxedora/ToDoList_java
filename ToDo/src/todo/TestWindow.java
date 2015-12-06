@@ -25,7 +25,6 @@ public class TestWindow {
 		todo.inProgress.add(t2);
 		todo.inProgress.add(t3);
 		todo.finished.add(t4);
-		todo.finished.add(t2);
 		todo.finished.get(0).setIsDone(true);
 		todo.typesList.addElement("travail");
 		todo.typesList.addElement("personnel");

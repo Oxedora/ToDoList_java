@@ -30,4 +30,17 @@ public class Punctual extends Task {
 	public LocalDate getBeginningDate() {
 		return this.getCreationDate();
 	}
+
+	public String getButtonText() {
+		return "<HTML><BODY><center>" // behavior of text is done in HTML
+				+this.title // task title
+				+"</center><BR>"
+				+this.endingDate.getDayOfMonth()+"/"+this.endingDate.getMonthValue()
+				+"/"+this.endingDate.getYear() // ending date
+				+"</BODY></HTML>";
+	}
+
+	@Override
+	public void setBeginningDate(LocalDate beginDate) throws TaskException {		
+	}
 }

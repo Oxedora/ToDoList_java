@@ -101,4 +101,19 @@ public class LongTerm extends Task {
 					this.getEndingDate();
 	}
 
+
+	@Override
+	public String getButtonText() {
+		return "<HTML><BODY><center>" // behavior of text is done in HTML
+				+this.title // task title
+				+"</center><BR>"
+				+this.beginningDate.getDayOfMonth()+"/"
+				+this.beginningDate.getMonthValue()+"/"
+				+this.beginningDate.getYear()+" - "
+				+this.endingDate.getDayOfMonth()+"/"
+				+this.endingDate.getMonthValue()+"/"
+				+this.endingDate.getYear() // ending date
+				+"</BODY></HTML>";
+	}
+
 }

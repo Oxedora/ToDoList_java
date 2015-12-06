@@ -135,6 +135,8 @@ public abstract class Task {
 		this.endingDate = endingDate;
 	}
 
+	public abstract void setBeginningDate(LocalDate beginDate) throws TaskException;
+	
 	/**
 	 * @return
 	 */
@@ -164,6 +166,45 @@ public abstract class Task {
 		this.isDone = isDone;
 	}
 	
+	//Getters for view part : display of detailed task
+	public String getFullDescription(){
+		return "<html><p>What I've done ? : "+this.description+"</p><html>";
+	}
+	
+	public String getFullType(){
+		return "<html><p>My sin : "+this.type+"</p><html>";
+	}
+	
+	public String getFullImportance(){
+		return	"<html><p>Gravity of sin : "+this.importance.toString()+"</p><html>";	
+	}
+	
+	public String getFullCreationDate(){
+		return "<html><p>Happy date : "+this.displayDate(this.creationDate)+"</p><html>";
+	}
+	
+	public String getFullBeginningDate(){
+		return "<html><p>Fall date : "+this.displayDate(this.getBeginningDate())+"</p><html>";
+	}
+	
+	public String getFullIntEndingDate(){
+		return "<html><p>The date between : "
+				+this.displayDate(this.getIntEndingDate())+"</p><html>";
+	}
+	
+	public String getFullEndingDate(){
+		return "<html><p>Unhappy date : "
+				+this.displayDate(this.endingDate)+"</p><html>";
+	}
+	
+	public String getFullIsLate(){
+		return "<html><p>Mycelium ? : "+this.isLate().toString()+"</p><html>";
+	}
+	
+	public String getFullIsDone(){
+		return "<html><p>Dead task : "+this.getIsDone().toString()+"</p><html>";
+	}
+	
 	/**
 	 * @return
 	 */
@@ -174,4 +215,8 @@ public abstract class Task {
 	 */
 	public abstract LocalDate getIntEndingDate();
 	
+	/**
+	 * @return
+	 */
+	public abstract String getButtonText();
 }
