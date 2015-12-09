@@ -16,6 +16,10 @@ public class Punctual extends Task {
 		super(title, description, type, importance, endingDate);
 	}
 	
+	public Punctual(){
+		super();
+	}
+	
 	/**
 	 * @return
 	 */

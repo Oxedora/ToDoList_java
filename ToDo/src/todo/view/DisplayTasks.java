@@ -39,6 +39,7 @@ public class DisplayTasks extends JPanel {
 
 	public void sortTask(Vector<Task> taskList, DetailedTask dt){
 		this.removeAll();
+		this.repaint();
 		this.revalidate();
 
 		JLabel rowTitle = new JLabel(this.title);
@@ -46,6 +47,7 @@ public class DisplayTasks extends JPanel {
 		rowTitle.setAlignmentX(CENTER_ALIGNMENT);
 
 		for(Task t : taskList){ 
+			System.out.println(t.getTitle());
 			// for every tasks, display its title and its interval of time in a button
 			ButtonPushed button = new ButtonPushed(t, t.getButtonText());
 			button.addActionListener(new ListenerDisplayButton(dt));
@@ -53,6 +55,7 @@ public class DisplayTasks extends JPanel {
 			if(t.isLate()){button.setForeground(Color.red);} // button is red if the task is late
 			this.add(button); // adding button to the panel
 		}
+		
 	}
 
 }

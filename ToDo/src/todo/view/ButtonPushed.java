@@ -20,7 +20,12 @@ public class ButtonPushed extends JButton{
 		return this.task;
 	}
 	
-	public void setTask(){
+	public void setTask(Task t){
+		this.task = t;
+		this.setText();
+	}
+	
+	public void setText(){
 		this.setText(this.task.getButtonText());
 	}
 }

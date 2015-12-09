@@ -1,37 +1,58 @@
 package todo.controller;
 
-import java.awt.Button;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import todo.model.Punctual;
+import todo.model.Task;
+import todo.view.ButtonPushed;
 import todo.view.DetailedTask;
 import todo.view.DisplayTasks;
 
 public class DeleteTaskListener implements ActionListener{
-	private Button delButton;
-	private DetailedTask currentTask;
+	private DetailedTask detailedTask;
+	private Vector<Task> inProgress;
+	private Vector<Task> finished;
+	private DisplayTasks displayInProgress;
+	private DisplayTasks displayFinished;
 	
-	public DeleteTaskListener(Button delButton, DetailedTask dt) {
+	public DeleteTaskListener(Vector<Task> inP, Vector<Task> done, DetailedTask dt, DisplayTasks dip, DisplayTasks df) {
 		super();
-		this.delButton = delButton;
-		this.currentTask = dt;
-	}
-
-	public DeleteTaskListener() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.inProgress = inP;
+		this.detailedTask = dt;
+		this.finished = done;
+		this.displayInProgress = dip;
+		this.displayFinished = df;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//int answer = JOptionPane.showConfirmDialog(null, "By the seven hells, do you want to doom \"".currentTask.get   ."???",
-		//											"God simulator", JOptionPane.OK_CANCEL_OPTION);
-		//if(answer ==  JOptionPane.OK_OPTION){
-			
-		//}
+		Task currentTask = detailedTask.getButtonP().getTask(); // getting the selected task
+		
+		JLabel message = new JLabel("By the seven hells, do you want to doom "+currentTask.getTitle()+" ???"); // warns the user about deleting the task
+		
+		int answer = JOptionPane.showConfirmDialog(null, message, "Satan simulator", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); // creates the dialog
+		
+		if(answer ==  JOptionPane.OK_OPTION){ // if the user said "yes"
+			if(currentTask.getIsDone()){ // if the task is done
+				finished.remove(currentTask); // done task removed from finished tasks
+				this.displayFinished.sortTask(finished, detailedTask); // sorts the remaining tasks & refresh the display
+				if(this.finished.size() > 0){ // if there still tasks
+					this.detailedTask.setTask(new ButtonPushed(finished.get(0), finished.get(0).getButtonText())); // displays the first one
+				}else{this.detailedTask.setTask(new ButtonPushed(new Punctual(), new Punctual().getButtonText()));} // else displays the legacy task 
+			}
+			else{
+				inProgress.remove(currentTask);
+				this.displayInProgress.sortTask(inProgress, detailedTask);
+				if(this.inProgress.size() > 0){
+					this.detailedTask.setTask(new ButtonPushed(inProgress.get(0), inProgress.get(0).getButtonText()));
+				}else{this.detailedTask.setTask(new ButtonPushed(new Punctual(), new Punctual().getButtonText()));}
+			}
+		}
 	}
 
 }

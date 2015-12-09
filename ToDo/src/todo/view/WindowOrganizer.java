@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import todo.model.Task;
 import todo.controller.AddTaskListener;
+import todo.controller.DeleteTaskListener;
 import todo.controller.SortListener;
 
 public class WindowOrganizer extends JFrame{
@@ -15,9 +16,9 @@ public class WindowOrganizer extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel north  = new JPanel(); // new panel for the north part of the frame
-	JPanel center = new JPanel(); // new panel for the center part of the frame
-	JPanel south  = new JPanel(); // new panel for the south part of the frame
+	NorthPanel  north; // new panel for the north part of the frame
+	CenterPanel center; // new panel for the center part of the frame
+	SouthPanel  south; // new panel for the south part of the frame
 	
 	public WindowOrganizer(Vector<Task> progressList, Vector<Task> finishedList, Vector<String> types){
 		/*********************************************************/
@@ -40,28 +41,33 @@ public class WindowOrganizer extends JFrame{
 		this.north = new NorthPanel();
 
 		/********************* The center panel ******************/
-		this.center = new CenterPanel(progressList, finishedList);
+		this.center = new CenterPanel(progressList, finishedList, types);
 		
 		/********************* The south panel *******************/
-		this.south = new SouthPanel(types);
+		this.south = new SouthPanel();
 
 
 		/**************** Interaction by listeners ***************/
-		((NorthPanel) this.north).getSortCB().addActionListener(
+		this.north.getSortCB().addActionListener(
 				new SortListener(progressList, 
-								((CenterPanel) this.center).getInProgressTasks(), 
-								((CenterPanel) this.center).getDetailedTask()));
-		((NorthPanel) this.north).getSortCB().addActionListener(
+								this.center.getInProgressTasks(), 
+								this.center.getDetailedTask()));
+		this.north.getSortCB().addActionListener(
 				new SortListener(finishedList, 
-								((CenterPanel) this.center).getDoneTasks(), 
-								((CenterPanel) this.center).getDetailedTask()));
+								this.center.getDoneTasks(), 
+								this.center.getDetailedTask()));
 		
-		((SouthPanel) this.south).getAddTask().addActionListener(
-				new AddTaskListener(progressList, 
-									((CenterPanel) this.center).getInProgressTasks(), 
-									((CenterPanel) this.center).getDetailedTask(), 
-									types));
-		//((SouthPanel) this.south).getDelTask().addActionListener(new DeleteTaskListener());
+		this.south.getAddTask().addActionListener(
+				new AddTaskListener(progressList,
+									types,
+									this.center));
+		this.south.getDelTask().addActionListener(
+				new DeleteTaskListener(
+						progressList,
+						finishedList,
+						this.center.getDetailedTask(),
+						this.center.getInProgressTasks(),
+						this.center.getDoneTasks()));
 		
 		/*********************************************************/
 		/******************** THE MAIN FRAME *********************/

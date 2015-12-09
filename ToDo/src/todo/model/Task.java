@@ -26,7 +26,7 @@ public abstract class Task {
 		+this.creationDate);
 		}
 		
-		if(title == null){
+		if(title == null || title == ""){
 			throw new TaskException("Get a real name u junk");
 		}
 		
@@ -38,6 +38,16 @@ public abstract class Task {
 		this.creationDate = LocalDate.now();
 		this.endingDate = endingDate;
 		this.isDone = false;
+	}
+	
+	public Task(){
+		this.title = "Genesis";
+		this.description = "Alpha & Omega";
+		this.type = "cheated";
+		this.importance = Importance.High;
+		this.creationDate = LocalDate.parse("1993-06-21");
+		this.endingDate = LocalDate.parse("1994-01-24");
+		this.isDone = true;
 	}
 
 	
@@ -54,7 +64,7 @@ public abstract class Task {
 	 */
 	public void setTitle(String title) throws TaskException{ // exception si nul
 		// exception si isDone
-		if(title == null){
+		if(title == null || title == ""){
 			throw new TaskException("Get a real name u Junk");
 		}
 		

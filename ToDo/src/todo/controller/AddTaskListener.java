@@ -20,17 +20,16 @@ import todo.model.Task;
 import todo.model.TaskException;
 import todo.view.DetailedTask;
 import todo.view.DisplayTasks;
+import todo.view.CenterPanel;
 
 public class AddTaskListener implements ActionListener{
 	private Vector<Task> taskList;
-	private DisplayTasks dit;
-	private DetailedTask dt;
+	private CenterPanel center;
 	private Vector<String> types;
  
-	public AddTaskListener(Vector<Task> taskList, DisplayTasks dit, DetailedTask dt, Vector<String> types){
+	public AddTaskListener(Vector<Task> taskList, Vector<String> types, CenterPanel center){
 		this.taskList = taskList;
-		this.dit = dit;
-		this.dt = dt;
+		this.center = center;
 		this.types = types;
 	}
 
@@ -72,29 +71,28 @@ public class AddTaskListener implements ActionListener{
 			
 			if(answer ==  JOptionPane.OK_OPTION){
 				try {
+					Task t;
 					if(tDateBeg.getText().equals("yyyy-mm-dd") || tDateBeg.getText().equals(tDateEnd.getText())){
-						Punctual t = new Punctual(tTitle.getText(),
-								typesCB.getSelectedItem().toString(), //tType.getText(),
+						t = new Punctual(tTitle.getText(),
 								tDesc.getText(),
+								typesCB.getSelectedItem().toString(), //tType.getText(),
 								(Importance)tImp.getSelectedItem(),
 								LocalDate.parse(tDateEnd.getText())
 								);
-	
-						taskList.add(t);
-						dit.sortTask(taskList, dt);
 					}
 					else{
-						LongTerm t = new LongTerm(tTitle.getText(),
-								typesCB.getSelectedItem().toString(), //tType.getText(),
+						t = new LongTerm(tTitle.getText(),
 								tDesc.getText(),
+								typesCB.getSelectedItem().toString(),
 								(Importance)tImp.getSelectedItem(),
 								LocalDate.parse(tDateBeg.getText()),
 								LocalDate.parse(tDateEnd.getText())
 								);
-	
-						taskList.add(t);
-						dit.sortTask(taskList, dt);
 					}
+					taskList.add(t);
+					center.getInProgressTasks().sortTask(taskList, center.getDetailedTask());
+					center.repaint();
+					center.revalidate();
 				} catch (TaskException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), 
 							"Doom on you",JOptionPane.ERROR_MESSAGE);
