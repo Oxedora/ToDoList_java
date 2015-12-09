@@ -4,6 +4,13 @@ import java.time.LocalDate;
 
 import javax.swing.*;
 
+import todo.model.Importance;
+import todo.model.LongTerm;
+import todo.model.Organizer;
+import todo.model.Punctual;
+import todo.model.TaskException;
+import todo.view.WindowOrganizer;
+
 public class TestWindow {
 	public static void main(String[] args) throws TaskException {
 		LocalDate d1 = LocalDate.of(2015, 12, 14);
@@ -21,15 +28,15 @@ public class TestWindow {
 				Importance.Normal, d1);
 		
 		Organizer todo = new Organizer();
-		todo.inProgress.add(t1);
-		todo.inProgress.add(t2);
-		todo.inProgress.add(t3);
-		todo.finished.add(t4);
-		todo.finished.get(0).setIsDone(true);
-		todo.typesList.addElement("travail");
-		todo.typesList.addElement("personnel");
+		todo.getInProgress().add(t1);
+		todo.getInProgress().add(t2);
+		todo.getInProgress().add(t3);
+		todo.getFinished().add(t4);
+		todo.getFinished().get(0).setIsDone(true);
+		todo.getTypesList().addElement("travail");
+		todo.getTypesList().addElement("personnel");
 		
-		WindowOrganizer worg = new WindowOrganizer(todo.inProgress, todo.finished, todo.typesList);
-		
+		WindowOrganizer worg = new WindowOrganizer(todo.getInProgress(), todo.getFinished(), todo.getTypesList());
+
 	}
 }

@@ -3,6 +3,16 @@ package todo;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import todo.model.Importance;
+import todo.model.LongTerm;
+import todo.model.Organizer;
+import todo.model.Punctual;
+import todo.model.SortByEndingDate;
+import todo.model.SortByImportance;
+import todo.model.SortByIntEndingDate;
+import todo.model.Task;
+import todo.model.TaskException;
+
 public class TestToDo {
 
 	public static void main(String[] args) throws TaskException {
@@ -19,35 +29,35 @@ public class TestToDo {
 				Importance.Low, d4);
 		
 		Organizer todo = new Organizer();
-		todo.inProgress.add(t1);
-		todo.inProgress.add(t2);
-		todo.inProgress.add(t3);
+		todo.getInProgress().add(t1);
+		todo.getInProgress().add(t2);
+		todo.getInProgress().add(t3);
 		
 		System.out.println("Comparaison de High et Normal : "+Importance.High.compareTo(Importance.Normal)+"\n");
 		
 		System.out.println("Avant le tri");
-		for(Task t : todo.inProgress){
+		for(Task t : todo.getInProgress()){
 			System.out.println(t.getTitle());
 		}
 		
-		Collections.sort(todo.inProgress, new SortByEndingDate());
+		Collections.sort(todo.getInProgress(), new SortByEndingDate());
 	
 		System.out.println("Tri par dates de fin");
-		for(Task t : todo.inProgress){
+		for(Task t : todo.getInProgress()){
 			System.out.println(t.getTitle());
 		}
 	
-		Collections.sort(todo.inProgress, new SortByIntEndingDate());
+		Collections.sort(todo.getInProgress(), new SortByIntEndingDate());
 		
 		System.out.println("Tri par dates de fin intermédiaires");
-		for(Task t : todo.inProgress){
+		for(Task t : todo.getInProgress()){
 			System.out.println(t.getTitle());
 		}
 	
-		Collections.sort(todo.inProgress, new SortByImportance());
+		Collections.sort(todo.getInProgress(), new SortByImportance());
 	
 		System.out.println("Tri par importance, puis dates de fin");
-		for(Task t : todo.inProgress){
+		for(Task t : todo.getInProgress()){
 			System.out.println(t.getTitle());
 		}
 		

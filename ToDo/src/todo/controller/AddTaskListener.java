@@ -25,11 +25,13 @@ public class AddTaskListener implements ActionListener{
 	private Vector<Task> taskList;
 	private DisplayTasks dit;
 	private DetailedTask dt;
-
-	public AddTaskListener(Vector<Task> taskList, DisplayTasks dit, DetailedTask dt){
+	private Vector<String> types;
+ 
+	public AddTaskListener(Vector<Task> taskList, DisplayTasks dit, DetailedTask dt, Vector<String> types){
 		this.taskList = taskList;
 		this.dit = dit;
 		this.dt = dt;
+		this.types = types;
 	}
 
 	@Override
@@ -40,7 +42,11 @@ public class AddTaskListener implements ActionListener{
 		while(!isokay){	
 			isokay = true;
 			JTextField tTitle = new JTextField("Unknown"); //Field to get the title of the task
-			JTextField tType = new JTextField(); //Field to get the type of the task
+			String[] typesArray = new String[types.size()];
+			for(int i = 0; i < types.size(); i++){typesArray[i] = types.get(i);} // init the array filled with the types
+			JComboBox typesCB = new JComboBox(typesArray); // adding the array of type into a JComboBox for interactions with the user
+			
+			//JTextField tType = new JTextField(); //Field to get the type of the task
 			JTextField tDesc = new JTextField(); //Field to get the description of the task
 			JComboBox<Importance> tImp = new JComboBox<Importance>(imp); //JComboBox to select the desired Importance
 			JTextField tDateBeg= new JTextField("yyyy-mm-dd"); //Field to get the beginning date
@@ -51,7 +57,7 @@ public class AddTaskListener implements ActionListener{
 			editPan.add(new JLabel("New task title :"));
 			editPan.add(tTitle);
 			editPan.add(new JLabel("New task type : "));
-			editPan.add(tType);
+			editPan.add(typesCB);
 			editPan.add(new JLabel("New description : "));
 			editPan.add(tDesc);
 			editPan.add(new JLabel("New importance : "));
@@ -62,43 +68,45 @@ public class AddTaskListener implements ActionListener{
 			editPan.add(tDateEnd);
 
 			//Showing the pop-up
-			JOptionPane.showConfirmDialog(null, editPan, "God simulator", JOptionPane.OK_CANCEL_OPTION);
-
-			try {
-				if(tDateBeg.getText().equals("yyyy-mm-dd") || tDateBeg.getText().equals(tDateEnd.getText())){
-					Punctual t = new Punctual(tTitle.getText(),
-							tType.getText(),
-							tDesc.getText(),
-							(Importance)tImp.getSelectedItem(),
-							LocalDate.parse(tDateEnd.getText())
-							);
-
-					taskList.add(t);
-					dit.sortTask(taskList, dt);
+			int answer = JOptionPane.showConfirmDialog(null, editPan, "God simulator", JOptionPane.OK_CANCEL_OPTION);
+			
+			if(answer ==  JOptionPane.OK_OPTION){
+				try {
+					if(tDateBeg.getText().equals("yyyy-mm-dd") || tDateBeg.getText().equals(tDateEnd.getText())){
+						Punctual t = new Punctual(tTitle.getText(),
+								typesCB.getSelectedItem().toString(), //tType.getText(),
+								tDesc.getText(),
+								(Importance)tImp.getSelectedItem(),
+								LocalDate.parse(tDateEnd.getText())
+								);
+	
+						taskList.add(t);
+						dit.sortTask(taskList, dt);
+					}
+					else{
+						LongTerm t = new LongTerm(tTitle.getText(),
+								typesCB.getSelectedItem().toString(), //tType.getText(),
+								tDesc.getText(),
+								(Importance)tImp.getSelectedItem(),
+								LocalDate.parse(tDateBeg.getText()),
+								LocalDate.parse(tDateEnd.getText())
+								);
+	
+						taskList.add(t);
+						dit.sortTask(taskList, dt);
+					}
+				} catch (TaskException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), 
+							"Doom on you",JOptionPane.ERROR_MESSAGE);
+					isokay = false;
 				}
-				else{
-					LongTerm t = new LongTerm(tTitle.getText(),
-							tType.getText(),
-							tDesc.getText(),
-							(Importance)tImp.getSelectedItem(),
-							LocalDate.parse(tDateBeg.getText()),
-							LocalDate.parse(tDateEnd.getText())
-							);
-
-					taskList.add(t);
-					dit.sortTask(taskList, dt);
+				catch(java.time.format.DateTimeParseException e1){
+					JOptionPane.showMessageDialog(null, "Date must be of the form yyyy-mm-dd",
+							"Doom on you", JOptionPane.ERROR_MESSAGE);
+					isokay = false;
 				}
-			} catch (TaskException e1) {
-				JOptionPane.showMessageDialog(null, e1.getMessage(), 
-						"Doom on you",JOptionPane.ERROR_MESSAGE);
-				isokay = false;
 			}
-			catch(java.time.format.DateTimeParseException e1){
-				JOptionPane.showMessageDialog(null, "Date must be of the form yyyy-mm-dd",
-						"Doom on you", JOptionPane.ERROR_MESSAGE);
-				isokay = false;
-			}
-		}
+		}	
+		
 	}
-
 }

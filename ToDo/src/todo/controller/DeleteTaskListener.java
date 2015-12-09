@@ -1,25 +1,23 @@
 package todo.controller;
-/*
+
 import java.awt.Button;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import todo.model.Task;
-
+import todo.view.DetailedTask;
 import todo.view.DisplayTasks;
 
 public class DeleteTaskListener implements ActionListener{
 	private Button delButton;
+	private DetailedTask currentTask;
 	
-	public DeleteTaskListener(Button delButton) {
+	public DeleteTaskListener(Button delButton, DetailedTask dt) {
 		super();
 		this.delButton = delButton;
+		this.currentTask = dt;
 	}
 
 	public DeleteTaskListener() {
@@ -29,13 +27,11 @@ public class DeleteTaskListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		DetailedTask currentDT = this.delButton
-		JPanel delPan= new JPanel(new GridLayout(6,1,5,5));
-		
-		delPan.add(new JLabel("By the seven hells, are you sure to doom the task \"".currentDetailedTask.getTitle()."\""));
-		//Showing the pop-up
-		JOptionPane.showConfirmDialog(null, delPan, "Satan simulator", JOptionPane.OK_CANCEL_OPTION);
+		//int answer = JOptionPane.showConfirmDialog(null, "By the seven hells, do you want to doom \"".currentTask.get   ."???",
+		//											"God simulator", JOptionPane.OK_CANCEL_OPTION);
+		//if(answer ==  JOptionPane.OK_OPTION){
+			
+		//}
 	}
 
 }
-*/

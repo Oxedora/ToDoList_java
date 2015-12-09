@@ -59,7 +59,8 @@ public class WindowOrganizer extends JFrame{
 		((SouthPanel) this.south).getAddTask().addActionListener(
 				new AddTaskListener(progressList, 
 									((CenterPanel) this.center).getInProgressTasks(), 
-									((CenterPanel) this.center).getDetailedTask()));
+									((CenterPanel) this.center).getDetailedTask(), 
+									types));
 		//((SouthPanel) this.south).getDelTask().addActionListener(new DeleteTaskListener());
 		
 		/*********************************************************/
