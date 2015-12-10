@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import todo.controller.EditTypeListener;
 import todo.model.Punctual;
 import todo.model.Task;
 
@@ -20,14 +21,19 @@ public class CenterPanel extends JPanel {
 	private DisplayTasks inProgressTasks;	
 	private DisplayTasks doneTasks;
 	private JList<String> typeList;
+	private Vector<String> types;
 
 	public CenterPanel(Vector<Task> progressList, Vector<Task> finishedList, Vector<String> types){
+		this.types = types;
+		
 		this.setLayout(new BorderLayout()); // to correctly display the information
 		
 		/************* Managing the type list  *************/
 		JButton addType = new JButton("life a type");
 		JButton editType = new JButton("mess a type");
 		JButton delType = new JButton("Doom a type");
+		
+		editType.addActionListener(new EditTypeListener(this, progressList));
 		
 		JPanel buttonTypePane = new JPanel();//Contains buttons to interact with the types
 		buttonTypePane.setLayout(new GridLayout(0, 1));
@@ -36,7 +42,7 @@ public class CenterPanel extends JPanel {
 		buttonTypePane.add(editType);
 		buttonTypePane.add(delType);
 		
-		typeList = new JList<String>(types);
+		typeList = new JList<String>(this.types);
 		
 		JPanel typePanel = new JPanel();//Contains types and button to interact with them
 		typePanel.setLayout(new FlowLayout());
@@ -99,11 +105,15 @@ public class CenterPanel extends JPanel {
 		return typeList;
 	}
 
-	public void setTypeList(JList<String> typeList) {
+	public void setTypeList(Vector<String> typeList) {
 		this.typeList.removeAll();
-		this.typeList.revalidate();
 		this.typeList.repaint();
+		this.typeList.revalidate();
 		
-		this.typeList.add(typeList);
+		this.typeList.setListData(types);
+	}
+	
+	public Vector<String> getTypes(){
+		return this.types;
 	}
 }

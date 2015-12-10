@@ -7,35 +7,61 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import todo.model.Task;
+import todo.model.TaskException;
 import todo.view.CenterPanel;
 
 public class EditTypeListener implements ActionListener{
 	private CenterPanel center;
-	
-	public EditTypeListener(CenterPanel center) {
+	private Vector<Task> taskList;
+
+	public EditTypeListener(CenterPanel center, Vector<Task> taskList) {
 		super();
 		this.center = center;
+		this.taskList = taskList;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JPanel editPane = new JPanel();
-		editPane.setLayout(new GridLayout(0, 1));
-		
-		JTextField tType = new JTextField(center.getTypeList().getSelectedValue());
-		
-		editPane.add(new JLabel("New type name : "));
-		editPane.add(tType);
-		
-		int answer = JOptionPane.showConfirmDialog(null, editPane, "Mess it !", JOptionPane.OK_CANCEL_OPTION);
-		
-		if(answer == JOptionPane.OK_OPTION){
-			center.setTypeList(this.center.getTypeList());
-			// mettre a jour la liste des types
-			// parcourir la liste tache pour modifier l'ancien type
-			for()
+		boolean isokay = false;
+
+		while(!isokay){
+			isokay = false;
+			JPanel editPane = new JPanel();
+			editPane.setLayout(new GridLayout(0, 1));
+
+			JTextField tType = new JTextField(center.getTypeList().getSelectedValue());
+
+			editPane.add(new JLabel("New type name : "));
+			editPane.add(tType);
+
+			int answer = JOptionPane.showConfirmDialog(null, editPane, "Mess it !", JOptionPane.OK_CANCEL_OPTION);
+
+			if(answer == JOptionPane.OK_OPTION){
+				String newType = tType.getText();
+				try {
+					if(newType == ""){
+						JOptionPane.showMessageDialog(null, "Not an acceptable name", "Doom on you", JOptionPane.ERROR_MESSAGE);
+						isokay = false;
+					}
+					else{
+						String oldType = center.getTypeList().getSelectedValue();
+						center.getTypes().remove(oldType);
+						center.getTypes().add(newType);
+
+						for(Task t : this.taskList){
+							if(t.getType() == oldType){
+								t.setType(newType);
+							}
+						}
+						this.center.setTypeList(this.center.getTypes());
+						isokay = true;
+					}
+				} catch (TaskException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Doom on you", JOptionPane.ERROR_MESSAGE);
+					isokay = false;
+				}
+			}
 		}
 	}
-	
-	
 }
