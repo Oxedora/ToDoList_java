@@ -8,6 +8,8 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import todo.controller.AddTypeListener;
+import todo.controller.DeleteTypeListener;
 import todo.controller.EditTypeListener;
 import todo.model.Punctual;
 import todo.model.Task;
@@ -38,8 +40,9 @@ public class CenterPanel extends JPanel {
 		JButton delType = new JButton("Doom a type");  // deletes a type
 		
 		/************** Listening the buttons **************/
+
+		editType.addActionListener(new EditTypeListener(this, progressList)); // listens the edit button
 		addType.addActionListener(new AddTypeListener(this));
-		editType.addActionListener(new EditTypeListener(this, progressList));
 		delType.addActionListener(new DeleteTypeListener(this, progressList));
 		
 		/***** Adding the buttons to the button panel *****/

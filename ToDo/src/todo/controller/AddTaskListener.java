@@ -28,6 +28,7 @@ public class AddTaskListener implements ActionListener{
 	private Vector<String> types;
  
 	public AddTaskListener(Vector<Task> taskList, Vector<String> types, CenterPanel center){
+		super();
 		this.taskList = taskList;
 		this.center = center;
 		this.types = types;

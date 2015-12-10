@@ -21,6 +21,7 @@ public class SortListener implements ActionListener{
 
 
 	public SortListener(Vector<Task> taskList, DisplayTasks dit, DetailedTask dt) {
+		super();
 		this.taskList = taskList;
 		this.dit = dit;
 		this.dt = dt;

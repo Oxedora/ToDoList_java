@@ -12,6 +12,7 @@ public class ListenerDisplayButton implements ActionListener{
 	private DetailedTask dt;
 	
 	public ListenerDisplayButton(DetailedTask dt){
+		super();
 		this.dt = dt;
 		}
 	

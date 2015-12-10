@@ -19,6 +19,7 @@ public class ItsDoneListener implements ActionListener{
 	private Vector<Task> finished;
 	
 	public ItsDoneListener(CenterPanel center, Vector<Task> inProgress, Vector<Task> finished){
+		super();
 		this.center = center;
 		this.inProgress = inProgress;
 		this.finished = finished;
