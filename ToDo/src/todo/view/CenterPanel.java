@@ -33,7 +33,9 @@ public class CenterPanel extends JPanel {
 		JButton editType = new JButton("mess a type");
 		JButton delType = new JButton("Doom a type");
 		
+		addType.addActionListener(new AddTypeListener(this));
 		editType.addActionListener(new EditTypeListener(this, progressList));
+		delType.addActionListener(new DeleteTypeListener(this, progressList));
 		
 		JPanel buttonTypePane = new JPanel();//Contains buttons to interact with the types
 		buttonTypePane.setLayout(new GridLayout(0, 1));

@@ -44,7 +44,7 @@ public class EditTypeListener implements ActionListener{
 			if(answer == JOptionPane.OK_OPTION){
 				String newType = tType.getText();
 				try {
-					if(newType == ""){
+					if(newType.length() == 0){
 						JOptionPane.showMessageDialog(null, "Not an acceptable name", "Doom on you", JOptionPane.ERROR_MESSAGE);
 						isokay = false;
 					}
