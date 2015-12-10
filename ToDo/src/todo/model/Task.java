@@ -117,7 +117,7 @@ public abstract class Task {
 	public LocalDate getCreationDate() {
 		return creationDate;
 	}
-
+	
 	/**
 	 * @return
 	 */
@@ -214,6 +214,10 @@ public abstract class Task {
 	public String getFullIsDone(){
 		return "<html><p>Dead task : "+this.getIsDone().toString()+"</p><html>";
 	}
+	
+	public abstract int getActualProgress();
+	
+	public abstract void setActualProgress(int n) throws TaskException;
 	
 	/**
 	 * @return

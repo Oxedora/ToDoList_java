@@ -47,4 +47,14 @@ public class Punctual extends Task {
 	@Override
 	public void setBeginningDate(LocalDate beginDate) throws TaskException {		
 	}
+
+	@Override
+	public int getActualProgress() {
+		return (this.getIsDone() ? 100 : 0);
+	}
+
+	@Override
+	public void setActualProgress(int n) {
+		return;
+	}
 }

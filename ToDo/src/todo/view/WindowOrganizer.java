@@ -1,7 +1,6 @@
 package todo.view;
 
 import java.awt.*;
-
 import java.util.Vector;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ import javax.swing.*;
 import todo.model.Task;
 import todo.controller.AddTaskListener;
 import todo.controller.DeleteTaskListener;
+import todo.controller.EditTaskListener;
 import todo.controller.ItsDoneListener;
 import todo.controller.SortListener;
 
@@ -47,6 +47,10 @@ public class WindowOrganizer extends JFrame{
 				new ItsDoneListener(this.center, 
 						   			progressList, 
 						   			finishedList));
+		this.center.getDetailedTask().getEditButton().addActionListener(
+				new EditTaskListener(this.center,
+									progressList,
+									finishedList));
 		
 		/********************* The north panel *******************/
 		this.north = new NorthPanel(); // manage the sort

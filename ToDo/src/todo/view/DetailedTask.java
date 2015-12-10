@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-import todo.controller.ListenerEdit;
 import todo.model.LongTerm;
 import todo.model.Task;
 
@@ -16,6 +15,7 @@ public class DetailedTask extends JPanel{
 	private ButtonPushed buttonP;
 	private Vector<String> types;
 	private JButton setToDone = new JButton("AAAAAAAAAAND ITS DONE !");
+	private JButton editButton = new JButton("The Fate modifier");
 
 	/* Display all the informations about the selected task */
 	public DetailedTask(ButtonPushed buttonP, Vector<String> types){
@@ -42,14 +42,16 @@ public class DetailedTask extends JPanel{
 		this.add(new JLabel(t.getFullIsDone()));
 
 		if(!t.getIsDone()){
-			EditButton editButton = new EditButton(t);
-			editButton.addActionListener(new ListenerEdit(this));
 			this.add(editButton); // allow editing on the task
 			
 			this.add(this.setToDone); // validate the done task
 		}
 	}
 	
+	public JButton getEditButton() {
+		return editButton;
+	}
+
 	public void setTask(ButtonPushed buttonP){
 		this.removeAll();
 		this.repaint();
@@ -78,10 +80,7 @@ public class DetailedTask extends JPanel{
 		this.add(new JLabel(t.getFullIsDone()));
 
 		if(!t.getIsDone()){
-			EditButton button = new EditButton(t);
-			button.addActionListener(new ListenerEdit(this));
-
-			this.add(button); // allow editing on the task
+			this.add(editButton); // allow editing on the task
 			
 			this.add(this.setToDone);
 		}
