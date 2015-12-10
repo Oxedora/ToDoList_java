@@ -28,13 +28,14 @@ public class TestWindow {
 				Importance.Normal, d1);
 		
 		Organizer todo = new Organizer();
-		/*todo.getInProgress().add(t1);
+		todo.getInProgress().add(t1);
 		todo.getInProgress().add(t2);
 		todo.getInProgress().add(t3);
 		todo.getFinished().add(t4);
-		todo.getFinished().get(0).setIsDone(true);*/
+		todo.getFinished().get(0).setIsDone(true);
 		todo.getTypesList().addElement("travail");
 		todo.getTypesList().addElement("personnel");
+		todo.getTypesList().addElement("");
 		
 		WindowOrganizer worg = new WindowOrganizer(todo.getInProgress(), todo.getFinished(), todo.getTypesList());
 

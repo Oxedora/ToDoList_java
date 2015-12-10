@@ -24,54 +24,65 @@ public class CenterPanel extends JPanel {
 	private Vector<String> types;
 
 	public CenterPanel(Vector<Task> progressList, Vector<Task> finishedList, Vector<String> types){
-		this.types = types;
-		
+		this.types = types;	
+		this.typeList = new JList<String>(this.types);	
 		this.setLayout(new BorderLayout()); // to correctly display the information
 		
-		/************* Managing the type list  *************/
-		JButton addType = new JButton("life a type");
-		JButton editType = new JButton("mess a type");
-		JButton delType = new JButton("Doom a type");
+		/***************************************************/
+		/************* Managing the type list **************/
+		/***************************************************/
 		
-		editType.addActionListener(new EditTypeListener(this, progressList));
+		/************** Creating the buttons ***************/
+		JButton addType = new JButton("life a type");  // creates a type
+		JButton editType = new JButton("mess a type"); // edits a type
+		JButton delType = new JButton("Doom a type");  // deletes a type
 		
-		JPanel buttonTypePane = new JPanel();//Contains buttons to interact with the types
-		buttonTypePane.setLayout(new GridLayout(0, 1));
+		/************** Listening the buttons **************/
+		editType.addActionListener(new EditTypeListener(this, progressList)); // listens the edit button
+		
+		/***** Adding the buttons to the button panel *****/
+		JPanel buttonTypePane = new JPanel();// Contains buttons to interact with the types
+		buttonTypePane.setLayout(new GridLayout(0, 1)); // displays the buttons in columns
 		
 		buttonTypePane.add(addType);
 		buttonTypePane.add(editType);
 		buttonTypePane.add(delType);
 		
-		typeList = new JList<String>(this.types);
+		/***** Displaying the types and their buttons *****/
+		JPanel typePanel = new JPanel();// Contains types and buttons to interact with them
+		typePanel.setLayout(new FlowLayout()); // displays informations in lines
+		typePanel.add(this.typeList); // displays the list of types
+		typePanel.add(buttonTypePane); // displays the buttons
 		
-		JPanel typePanel = new JPanel();//Contains types and button to interact with them
-		typePanel.setLayout(new FlowLayout());
+		/***************************************************/
+		/*********** Managing the tasks display ************/
+		/***************************************************/
 		
-		typePanel.add(typeList);
-		typePanel.add(buttonTypePane);
-		
-		/************* Creating the low-level panels *************/
+		/***** Displaying the tasks chosen by the user *****/
 		this.detailedTask = new DetailedTask(
 				new ButtonPushed(new Punctual(), new Punctual().getButtonText()),
 				types
 				); // display details of the task chosen by the user
 		JScrollPane scrollDetail= new JScrollPane(detailedTask);
 		
-		JPanel middlePane = new JPanel();//Contains DetailedTask and types
+		JPanel middlePane = new JPanel();// Contains DetailedTask and types
 		middlePane.setLayout(new GridLayout(0, 1));
-		
 		middlePane.add(scrollDetail);
 		middlePane.add(typePanel);
 		
+		/******** Displaying the tasks in progress ********/
 		this.inProgressTasks = new DisplayTasks(progressList, "Still alive...", detailedTask); // display of tasks in progress
 		this.inProgressTasks.setBackground(Color.lightGray); // adding a color to distinguish it from other parts
 		JScrollPane scrollProgress = new JScrollPane(inProgressTasks);
 		
+		/********* Displaying the finished tasks **********/
 		this.doneTasks = new DisplayTasks(finishedList, "Dead tasks", detailedTask); // display of done tasks
 		this.doneTasks.setBackground(Color.gray); // adding a color to distinguish it from other parts
 		JScrollPane scrollDone= new JScrollPane(doneTasks);
 		
-		/**** Adding the low-level panels to the center panel ***/
+		/***************************************************/
+		/* Adding the low-level panels to the center panel */
+		/***************************************************/
 		this.add(scrollProgress, BorderLayout.WEST); // Tasks in progress are displayed in the west side
 		this.add(middlePane, BorderLayout.CENTER); // The detailed task is displayed in the center side
 		this.add(scrollDone, BorderLayout.EAST); // Done tasks are displayed in the east side	

@@ -15,6 +15,7 @@ public class DetailedTask extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private ButtonPushed buttonP;
 	private Vector<String> types;
+	private JButton setToDone = new JButton("AAAAAAAAAAND ITS DONE !");
 
 	/* Display all the informations about the selected task */
 	public DetailedTask(ButtonPushed buttonP, Vector<String> types){
@@ -45,9 +46,7 @@ public class DetailedTask extends JPanel{
 			editButton.addActionListener(new ListenerEdit(this));
 			this.add(editButton); // allow editing on the task
 			
-			JButton setToDone = new JButton("AAAAAAAAAAND ITS DONE !");
-			//setToDone.
-			this.add(setToDone); // validate the done task
+			this.add(this.setToDone); // validate the done task
 		}
 	}
 	
@@ -83,9 +82,19 @@ public class DetailedTask extends JPanel{
 			button.addActionListener(new ListenerEdit(this));
 
 			this.add(button); // allow editing on the task
+			
+			this.add(this.setToDone);
 		}
 	}
 	
+	public JButton getSetToDone() {
+		return setToDone;
+	}
+
+	public void setSetToDone(JButton setToDone) {
+		this.setToDone = setToDone;
+	}
+
 	public Vector<String> getTypes() {
 		return types;
 	}

@@ -9,6 +9,7 @@ import javax.swing.*;
 import todo.model.Task;
 import todo.controller.AddTaskListener;
 import todo.controller.DeleteTaskListener;
+import todo.controller.ItsDoneListener;
 import todo.controller.SortListener;
 
 public class WindowOrganizer extends JFrame{
@@ -37,31 +38,36 @@ public class WindowOrganizer extends JFrame{
 		/******************** LOW-LEVEL PANELS *******************/
 		/*********************************************************/
 		
-		/********************* The north panel *******************/
-		this.north = new NorthPanel();
-
 		/********************* The center panel ******************/
-		this.center = new CenterPanel(progressList, finishedList, types);
+		this.center = new CenterPanel(progressList, finishedList, types); // manage the in progress list of tasks
+																		  // manage the finished list of tasks
+																		  // manage the displayed task chosen by the user
 		
-		/********************* The south panel *******************/
-		this.south = new SouthPanel();
-
-
-		/**************** Interaction by listeners ***************/
-		this.north.getSortCB().addActionListener(
+		this.center.getDetailedTask().getSetToDone().addActionListener( // adding the listener of done tasks
+				new ItsDoneListener(this.center, 
+						   			progressList, 
+						   			finishedList));
+		
+		/********************* The north panel *******************/
+		this.north = new NorthPanel(); // manage the sort
+		
+		this.north.getSortCB().addActionListener( // adding the sort listener for tasks in progress
 				new SortListener(progressList, 
 								this.center.getInProgressTasks(), 
 								this.center.getDetailedTask()));
-		this.north.getSortCB().addActionListener(
+		this.north.getSortCB().addActionListener( // adding the sort listener for finished tasks
 				new SortListener(finishedList, 
 								this.center.getDoneTasks(), 
 								this.center.getDetailedTask()));
+
+		/********************* The south panel *******************/
+		this.south = new SouthPanel(); // manage the adding/deletion of a task and the appraisal of the work done
 		
-		this.south.getAddTask().addActionListener(
+		this.south.getAddTask().addActionListener( // adding listener to add a task in the in progress list of tasks
 				new AddTaskListener(progressList,
 									types,
 									this.center));
-		this.south.getDelTask().addActionListener(
+		this.south.getDelTask().addActionListener( // adding a listener to delete a task (in the in progress list or the done list)
 				new DeleteTaskListener(
 						progressList,
 						finishedList,
