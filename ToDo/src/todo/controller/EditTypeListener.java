@@ -26,12 +26,16 @@ public class EditTypeListener implements ActionListener{
 		boolean isokay = false;
 
 		while(!isokay){
+			JTextField tType = new JTextField(center.getTypeList().getSelectedValue());
+			
+			if(tType.getText().length() == 0){ // if user didn't select any types, asks him to
+				JOptionPane.showMessageDialog(null, "Please, select a type.", "Mess it !", JOptionPane.OK_OPTION);
+				break; // gets out of the loop because other lines are now useless
+			}
+			
 			isokay = false;
 			JPanel editPane = new JPanel();
 			editPane.setLayout(new GridLayout(0, 1));
-
-			JTextField tType = new JTextField(center.getTypeList().getSelectedValue());
-
 			editPane.add(new JLabel("New type name : "));
 			editPane.add(tType);
 
@@ -62,6 +66,7 @@ public class EditTypeListener implements ActionListener{
 					isokay = false;
 				}
 			}
+			else{isokay = true;}
 		}
 	}
 }
