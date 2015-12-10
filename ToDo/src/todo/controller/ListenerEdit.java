@@ -22,6 +22,7 @@ public class ListenerEdit implements ActionListener{
 	private DetailedTask dt;
 
 	public ListenerEdit(DetailedTask dt){
+		super();
 		this.dt = dt;
 	}
 

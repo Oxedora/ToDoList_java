@@ -1,4 +1,4 @@
-package todo.view;
+package todo.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import todo.model.Task;
 import todo.model.TaskException;
+import todo.view.CenterPanel;
 
 public class DeleteTypeListener implements ActionListener{
 	private CenterPanel center;
@@ -25,7 +26,7 @@ public class DeleteTypeListener implements ActionListener{
 		String doomedType = this.center.getTypeList().getSelectedValue();
 
 		if(doomedType == null){ // if user didn't select any types, asks him to
-			JOptionPane.showMessageDialog(null, "Please, select a type.", "Doo on you !", JOptionPane.OK_OPTION);
+			JOptionPane.showMessageDialog(null, "Please, select a type.", "Doom on you !", JOptionPane.OK_OPTION);
 		}
 		else{
 			try {

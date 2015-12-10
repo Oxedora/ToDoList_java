@@ -1,4 +1,4 @@
-package todo.view;
+package todo.controller;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import todo.view.CenterPanel;
 
 public class AddTypeListener implements ActionListener{
 	private CenterPanel center;
