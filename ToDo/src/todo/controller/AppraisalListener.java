@@ -42,7 +42,8 @@ public class AppraisalListener  implements ActionListener{
 			selectDate.add(new JLabel("To : "));
 			selectDate.add(tDateEnd);
 			
-			int answer = JOptionPane.showConfirmDialog(null, selectDate, "Preview of work", JOptionPane.OK_CANCEL_OPTION);
+			int answer = JOptionPane.showConfirmDialog(null, selectDate, 
+					"Preview of work", JOptionPane.OK_CANCEL_OPTION);
 			
 			if(answer == JOptionPane.OK_OPTION){
 				try{
@@ -66,13 +67,18 @@ public class AppraisalListener  implements ActionListener{
 						if(total == 0){total = 1;}
 						
 						/* tasks in progress to display */
-						JList<String> inProgress = new JList<String>(inProgress(LocalDate.parse(tDateBeg.getText()), LocalDate.parse(tDateEnd.getText())));
+						JList<String> inProgress = new JList<String>(
+								inProgress(LocalDate.parse(tDateBeg.getText()),
+										LocalDate.parse(tDateEnd.getText())));
 						displayAppraisal.add(inProgress);
 						
 						/* percentages on tasks */
-						int doneInTime = doneInTime(LocalDate.parse(tDateBeg.getText()), LocalDate.parse(tDateEnd.getText()));
-						int doneLate = doneLate(LocalDate.parse(tDateBeg.getText()), LocalDate.parse(tDateEnd.getText()));
-						int stillNotDone = stillNotDone(LocalDate.parse(tDateBeg.getText()), LocalDate.parse(tDateEnd.getText()));
+						int doneInTime = doneInTime(LocalDate.parse(tDateBeg.getText()),
+						 		LocalDate.parse(tDateEnd.getText()));
+						int doneLate = doneLate(LocalDate.parse(tDateBeg.getText()),
+								LocalDate.parse(tDateEnd.getText()));
+						int stillNotDone = stillNotDone(LocalDate.parse(tDateBeg.getText()),
+								LocalDate.parse(tDateEnd.getText()));
 						
 						/* displaying the percentages */
 						JPanel displayPerCent = new JPanel(); // displays all percentages 
@@ -84,7 +90,8 @@ public class AppraisalListener  implements ActionListener{
 						
 						displayAppraisal.add(displayPerCent);
 						
-						JOptionPane.showConfirmDialog(null, displayAppraisal, "View of work", JOptionPane.OK_CANCEL_OPTION);
+						JOptionPane.showConfirmDialog(null, displayAppraisal, "View of work from "+tDateBeg.getText()+
+					" to "+tDateEnd.getText(), JOptionPane.OK_CANCEL_OPTION);
 					}
 				} catch(java.time.format.DateTimeParseException e1){
 					JOptionPane.showMessageDialog(null, "Date must be of the form yyyy-mm-dd",
@@ -105,6 +112,7 @@ public class AppraisalListener  implements ActionListener{
 		}
 		return tasksToDo;
 	}
+	
 	public int doneInTime(LocalDate beg, LocalDate end){
 		int doneInTime = 0;
 		for(Task t : this.finished){

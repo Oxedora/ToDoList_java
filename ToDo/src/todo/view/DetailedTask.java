@@ -1,5 +1,8 @@
 package todo.view;
 
+import java.awt.Color;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -22,7 +25,7 @@ public class DetailedTask extends JPanel{
 		this.types = types;
 		this.buttonP = buttonP; // keeps the information for updates
 		Task t = buttonP.getTask();
-		
+
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // display contents in columns
 
 		this.setBorder(BorderFactory.createTitledBorder(t.getTitle())); // display title in a border
@@ -41,16 +44,27 @@ public class DetailedTask extends JPanel{
 		if(t.getIsDone()){
 			this.add(new JLabel(t.getFullEffectiveEndingDate()));
 		}
+		else{
+			long timeLeft = LocalDate.now().until(t.getEndingDate(), ChronoUnit.DAYS);
+			if(timeLeft > 0){
+				this.add(new JLabel("Due in "+timeLeft+" day(s)"));
+			}
+			else{
+				JLabel late =new JLabel("Was due "+timeLeft+" day(s) ago !");
+				late.setForeground(Color.RED);
+				this.add(late);
+			}
+		}
 		this.add(new JLabel(t.getFullIsLate()));
 		this.add(new JLabel(t.getFullIsDone()));
 
 		if(!t.getIsDone()){
 			this.add(editButton); // allow editing on the task
-			
+
 			this.add(this.setToDone); // validate the done task
 		}
 	}
-	
+
 	public JButton getEditButton() {
 		return editButton;
 	}
@@ -59,9 +73,9 @@ public class DetailedTask extends JPanel{
 		this.removeAll();
 		this.repaint();
 		this.revalidate();
-		
+
 		this.buttonP = buttonP;
-		
+
 		Task t = buttonP.getTask(); // keeps the information for updates
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // display contents in columns
@@ -82,16 +96,27 @@ public class DetailedTask extends JPanel{
 		if(t.getIsDone()){
 			this.add(new JLabel(t.getFullEffectiveEndingDate()));
 		}
+		else{
+			long timeLeft = LocalDate.now().until(t.getEndingDate(), ChronoUnit.DAYS);
+			if(timeLeft > 0){
+				this.add(new JLabel("Due in "+timeLeft+" day(s)"));
+			}
+			else{
+				JLabel late =new JLabel("Was due "+timeLeft+" day(s) ago !");
+				late.setForeground(Color.RED);
+				this.add(late);
+			}
+		}
 		this.add(new JLabel(t.getFullIsLate()));
 		this.add(new JLabel(t.getFullIsDone()));
 
 		if(!t.getIsDone()){
 			this.add(editButton); // allow editing on the task
-			
+
 			this.add(this.setToDone);
 		}
 	}
-	
+
 	public JButton getSetToDone() {
 		return setToDone;
 	}

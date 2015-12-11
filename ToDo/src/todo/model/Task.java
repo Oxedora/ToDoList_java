@@ -1,17 +1,22 @@
 package todo.model;
 
 import java.time.*;
+import java.io.*;
 
 
-public abstract class Task {
-	String 	title;
-	String 	description;
-	String 	type;
-	Importance importance;
-	LocalDate creationDate;
-	LocalDate endingDate;
-	LocalDate effectiveEndingDate;
-	Boolean isDone;
+public abstract class Task implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String 	title;
+	private String 	description;
+	private String 	type;
+	private Importance importance;
+	private LocalDate creationDate;
+	private LocalDate endingDate;
+	private LocalDate effectiveEndingDate;
+	private Boolean isDone;
 	
 	/**
 	 * @param title
@@ -183,8 +188,11 @@ public abstract class Task {
 	/**
 	 * @param isDone
 	 */
-	public void setIsDone(Boolean isDone) { // exception si tache finie
+	public void setIsDone(Boolean isDone) {
 		this.isDone = isDone;
+		if(isDone){
+			this.setEffectiveEndingDate(LocalDate.now());
+		}
 	}
 	
 	//Getters for view part : display of detailed task

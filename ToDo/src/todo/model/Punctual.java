@@ -5,6 +5,11 @@ import java.time.*;
 public class Punctual extends Task {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @param title
 	 * @param description
 	 * @param type
@@ -24,7 +29,7 @@ public class Punctual extends Task {
 	 * @return
 	 */
 	public Boolean isLate(){
-		return (this.isDone ? false : LocalDate.now().isAfter(this.getEndingDate()));
+		return (this.getIsDone() ? false : LocalDate.now().isAfter(this.getEndingDate()));
 	}
 
 	public LocalDate getIntEndingDate() {
@@ -37,10 +42,10 @@ public class Punctual extends Task {
 
 	public String getButtonText() {
 		return "<HTML><BODY><center>" // behavior of text is done in HTML
-				+this.title // task title
+				+this.getTitle()
 				+"</center><BR>"
-				+this.endingDate.getDayOfMonth()+"/"+this.endingDate.getMonthValue()
-				+"/"+this.endingDate.getYear() // ending date
+				+this.getEndingDate().getDayOfMonth()+"/"+this.getEndingDate().getMonthValue()
+				+"/"+this.getEndingDate().getYear() // ending date
 				+"</BODY></HTML>";
 	}
 

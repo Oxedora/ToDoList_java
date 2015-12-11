@@ -38,7 +38,7 @@ public class TestWindow {
 		todo.getTypesList().addElement("personnel");
 		todo.getTypesList().addElement("");
 		
-		WindowOrganizer worg = new WindowOrganizer(todo.getInProgress(), todo.getFinished(), todo.getTypesList());
+		WindowOrganizer worg = new WindowOrganizer();
 
 	}
 }

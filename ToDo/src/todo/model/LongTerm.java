@@ -5,6 +5,10 @@ import java.time.temporal.*;
 
 public class LongTerm extends Task {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	LocalDate beginningDate;
 	int actualProgress;
 
@@ -44,9 +48,9 @@ public class LongTerm extends Task {
 	 * @throws TaskException 
 	 */
 	public void setBeginningDate(LocalDate beginningDate) throws TaskException {
-		if(beginningDate.isAfter(this.endingDate) || beginningDate.isBefore(this.creationDate)){
+		if(beginningDate.isAfter(this.getEndingDate()) || beginningDate.isBefore(this.getCreationDate())){
 			throw new TaskException("beginningDate must be between creationDate : "+
-		this.creationDate.toString()+" and endingDate : "+this.endingDate.toString());
+		this.getCreationDate().toString()+" and endingDate : "+this.getEndingDate().toString());
 		}
 		
 		this.beginningDate = beginningDate;
@@ -75,8 +79,8 @@ public class LongTerm extends Task {
 	 *
 	 */
 	public Boolean isLate() {
-		if(this.isDone){return false;}
-		if(LocalDate.now().isAfter(endingDate)) {return true;}
+		if(this.getIsDone()){return false;}
+		if(LocalDate.now().isAfter(getEndingDate())) {return true;}
 		
 		long daysBetween = this.getBeginningDate().until(this.getEndingDate(), ChronoUnit.DAYS);
 
@@ -105,14 +109,14 @@ public class LongTerm extends Task {
 	@Override
 	public String getButtonText() {
 		return "<HTML><BODY><center>" // behavior of text is done in HTML
-				+this.title // task title
+				+this.getTitle()
 				+"</center><BR>"
 				+this.beginningDate.getDayOfMonth()+"/"
 				+this.beginningDate.getMonthValue()+"/"
 				+this.beginningDate.getYear()+" - "
-				+this.endingDate.getDayOfMonth()+"/"
-				+this.endingDate.getMonthValue()+"/"
-				+this.endingDate.getYear() // ending date
+				+this.getEndingDate().getDayOfMonth()+"/"
+				+this.getEndingDate().getMonthValue()+"/"
+				+this.getEndingDate().getYear() // ending date
 				+"</BODY></HTML>";
 	}
 
