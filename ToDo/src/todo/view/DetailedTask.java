@@ -38,6 +38,9 @@ public class DetailedTask extends JPanel{
 			// display intermediate ending date for long term tasks
 		}
 		this.add(new JLabel(t.getFullEndingDate()));
+		if(t.getIsDone()){
+			this.add(new JLabel(t.getFullEffectiveEndingDate()));
+		}
 		this.add(new JLabel(t.getFullIsLate()));
 		this.add(new JLabel(t.getFullIsDone()));
 
@@ -76,6 +79,9 @@ public class DetailedTask extends JPanel{
 			// display intermediate ending date for long term tasks
 		}
 		this.add(new JLabel(t.getFullEndingDate()));
+		if(t.getIsDone()){
+			this.add(new JLabel(t.getFullEffectiveEndingDate()));
+		}
 		this.add(new JLabel(t.getFullIsLate()));
 		this.add(new JLabel(t.getFullIsDone()));
 

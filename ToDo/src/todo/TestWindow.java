@@ -32,6 +32,7 @@ public class TestWindow {
 		todo.getInProgress().add(t2);
 		todo.getInProgress().add(t3);
 		todo.getFinished().add(t4);
+		t4.setEffectiveEndingDate(LocalDate.now());
 		todo.getFinished().get(0).setIsDone(true);
 		todo.getTypesList().addElement("travail");
 		todo.getTypesList().addElement("personnel");

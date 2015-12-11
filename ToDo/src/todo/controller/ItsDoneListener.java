@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -32,6 +33,7 @@ public class ItsDoneListener implements ActionListener{
 		int answer = JOptionPane.showConfirmDialog(null, confirmPane, "Kill it with fire", JOptionPane.OK_CANCEL_OPTION);
 		
 		if(answer == JOptionPane.OK_OPTION){
+			this.center.getDetailedTask().getButtonP().getTask().setEffectiveEndingDate(LocalDate.now()); // task is done today
 			this.center.getDetailedTask().getButtonP().getTask().setIsDone(true); // the task is now done
 			
 			this.inProgress.removeElement(this.center.getDetailedTask().getButtonP().getTask()); // removing the task from tasks in progress

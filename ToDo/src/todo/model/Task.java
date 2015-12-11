@@ -10,6 +10,7 @@ public abstract class Task {
 	Importance importance;
 	LocalDate creationDate;
 	LocalDate endingDate;
+	LocalDate effectiveEndingDate;
 	Boolean isDone;
 	
 	/**
@@ -37,6 +38,7 @@ public abstract class Task {
 		this.importance = importance;
 		this.creationDate = LocalDate.now();
 		this.endingDate = endingDate;
+		this.effectiveEndingDate = null;
 		this.isDone = false;
 	}
 	
@@ -47,10 +49,19 @@ public abstract class Task {
 		this.importance = Importance.High;
 		this.creationDate = LocalDate.parse("1993-06-21");
 		this.endingDate = LocalDate.parse("1994-01-24");
+		this.effectiveEndingDate = LocalDate.parse("1994-01-24");
 		this.isDone = true;
 	}
 
 	
+	public LocalDate getEffectiveEndingDate() {
+		return effectiveEndingDate;
+	}
+
+	public void setEffectiveEndingDate(LocalDate effectiveEndingDate) {
+		this.effectiveEndingDate = effectiveEndingDate;
+	}
+
 	//Getters & Setters
 	/**
 	 * @return
@@ -205,6 +216,11 @@ public abstract class Task {
 	public String getFullEndingDate(){
 		return "<html><p>Unhappy date : "
 				+this.displayDate(this.endingDate)+"</p><html>";
+	}
+	
+	public String getFullEffectiveEndingDate(){
+		return "<html><p>Real unhappy date : "
+				+this.displayDate(this.effectiveEndingDate)+"</p><html>";
 	}
 	
 	public String getFullIsLate(){

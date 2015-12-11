@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import todo.model.Task;
 import todo.controller.AddTaskListener;
+import todo.controller.AppraisalListener;
 import todo.controller.DeleteTaskListener;
 import todo.controller.EditTaskListener;
 import todo.controller.ItsDoneListener;
@@ -78,6 +79,8 @@ public class WindowOrganizer extends JFrame{
 						this.center.getDetailedTask(),
 						this.center.getInProgressTasks(),
 						this.center.getDoneTasks()));
+		
+		this.south.getBilan().addActionListener(new AppraisalListener(progressList, finishedList));
 		
 		/*********************************************************/
 		/******************** THE MAIN FRAME *********************/
