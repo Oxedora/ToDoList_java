@@ -11,16 +11,18 @@ import todo.model.LongTerm;
 import todo.model.Task;
 
 public class DetailedTask extends JPanel{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private ButtonPushed buttonP;
 	private Vector<String> types;
 	private JButton setToDone = new JButton("AAAAAAAAAAND ITS DONE !");
 	private JButton editButton = new JButton("The Fate modifier");
 
-	/* Display all the informations about the selected task */
+	/**
+	 * Constructor of the DetailedTask : Display all the informations about the selected task 
+	 * @param buttonP : the button containing the task which information must be displayed
+	 * @param types : all the types availables for a task
+	 */
 	public DetailedTask(ButtonPushed buttonP, Vector<String> types){
 		this.types = types;
 		this.buttonP = buttonP; // keeps the information for updates
@@ -39,6 +41,7 @@ public class DetailedTask extends JPanel{
 			this.add(new JLabel(t.getFullBeginningDate()));
 			this.add(new JLabel(t.getFullIntEndingDate()));
 			// display intermediate ending date for long term tasks
+			this.add(new JLabel(t.getFullActualProgress()));
 		}
 		this.add(new JLabel(t.getFullEndingDate()));
 		if(t.getIsDone()){
@@ -65,10 +68,17 @@ public class DetailedTask extends JPanel{
 		}
 	}
 
+	/**
+	 * @return the button of the task it refers to
+	 */
 	public JButton getEditButton() {
 		return editButton;
 	}
 
+	/**
+	 * Update the view of the task
+	 * @param buttonP : the new task to be displyed
+	 */
 	public void setTask(ButtonPushed buttonP){
 		this.removeAll();
 		this.repaint();
@@ -91,6 +101,7 @@ public class DetailedTask extends JPanel{
 			this.add(new JLabel(t.getFullBeginningDate()));
 			this.add(new JLabel(t.getFullIntEndingDate()));
 			// display intermediate ending date for long term tasks
+			this.add(new JLabel(t.getFullActualProgress()));
 		}
 		this.add(new JLabel(t.getFullEndingDate()));
 		if(t.getIsDone()){
@@ -117,26 +128,37 @@ public class DetailedTask extends JPanel{
 		}
 	}
 
+	/**
+	 * @return the button that set a task to done
+	 */
 	public JButton getSetToDone() {
 		return setToDone;
 	}
 
-	public void setSetToDone(JButton setToDone) {
-		this.setToDone = setToDone;
-	}
-
+	/**
+	 * @return the list of types
+	 */
 	public Vector<String> getTypes() {
 		return types;
 	}
 
+	/**
+	 * @param types : the new list of types
+	 */
 	public void setTypes(Vector<String> types) {
 		this.types = types;
 	}
 
+	/**
+	 * @return the button that contains the displayed task
+	 */
 	public ButtonPushed getButtonP() {
 		return buttonP;
 	}
 
+	/**
+	 * @param buttonP : the new button containing the task to display
+	 */
 	public void setButtonP(ButtonPushed buttonP) {
 		this.buttonP = buttonP;
 	}

@@ -20,6 +20,12 @@ public class SortListener implements ActionListener{
 	private DetailedTask dt;
 
 
+	/**
+	 * Enable to sort the lists when a sort is selected
+	 * @param taskList : list of tasks to be sorted
+	 * @param dit : the panel that display the tasklist
+	 * @param dt : the panel that display the information
+	 */
 	public SortListener(Vector<Task> taskList, DisplayTasks dit, DetailedTask dt) {
 		super();
 		this.taskList = taskList;

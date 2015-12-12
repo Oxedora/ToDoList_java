@@ -14,6 +14,10 @@ import todo.view.CenterPanel;
 public class AddTypeListener implements ActionListener{
 	private CenterPanel center;
 
+	/**
+	 * Enable the button to add a type when clicked
+	 * @param center : the panel that contains the relevant view components
+	 */
 	public AddTypeListener(CenterPanel center) {
 		super();
 		this.center = center;

@@ -20,6 +20,14 @@ public class DeleteTaskListener implements ActionListener{
 	private DisplayTasks displayInProgress;
 	private DisplayTasks displayFinished;
 	
+	/**
+	 * Enable to delete the selected task when the button is clicked
+	 * @param inP : the list of tasks in progress
+	 * @param done : the list of done tasks
+	 * @param dt : the panel that display the informations of the selected task
+	 * @param dip : the panel that contains the tasks in progress
+	 * @param df : the panel that contains the done tasks
+	 */
 	public DeleteTaskListener(Vector<Task> inP, Vector<Task> done, DetailedTask dt, DisplayTasks dip, DisplayTasks df) {
 		super();
 		this.inProgress = inP;

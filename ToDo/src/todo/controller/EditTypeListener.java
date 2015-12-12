@@ -15,6 +15,11 @@ public class EditTypeListener implements ActionListener{
 	private CenterPanel center;
 	private Vector<Task> taskList;
 
+	/**
+	 * Enable to edit a type when the button is clicked
+	 * @param center : the pane that contains the relevant view components
+	 * @param taskList : the list of task in progress
+	 */
 	public EditTypeListener(CenterPanel center, Vector<Task> taskList) {
 		super();
 		this.center = center;

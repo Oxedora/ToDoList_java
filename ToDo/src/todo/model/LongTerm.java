@@ -5,21 +5,19 @@ import java.time.temporal.*;
 
 public class LongTerm extends Task {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	LocalDate beginningDate;
 	int actualProgress;
 
 
 	/**
-	 * @param title
-	 * @param description
-	 * @param type
-	 * @param endingDate
-	 * @param beginningDate
-	 * @throws TaskException 
+	 * @param title : the title of the task
+	 * @param description : the description of the task
+	 * @param type : the type of the task
+	 * @param importance : the importance of the task
+	 * @param endingDate : the date at which the task must be done
+	 * @param beginningDate : the date at which the task begin
+	 * @throws TaskException : the error for not suitable value
 	 */
 	public LongTerm(String title, String description, String type, 
 			Importance importance, LocalDate beginningDate, LocalDate endingDate) throws TaskException {
@@ -36,16 +34,15 @@ public class LongTerm extends Task {
 
 
 	//Getters & Setters
-	/**
-	 * @return
+	/* (non-Javadoc)
+	 * @see todo.model.Task#getBeginningDate()
 	 */
 	public LocalDate getBeginningDate() {
 		return beginningDate;
 	}
 
-	/**
-	 * @param beginningDate
-	 * @throws TaskException 
+	/* (non-Javadoc)
+	 * @see todo.model.Task#setBeginningDate(java.time.LocalDate)
 	 */
 	public void setBeginningDate(LocalDate beginningDate) throws TaskException {
 		if(beginningDate.isAfter(this.getEndingDate()) || beginningDate.isBefore(this.getCreationDate())){
@@ -56,15 +53,15 @@ public class LongTerm extends Task {
 		this.beginningDate = beginningDate;
 	}
 
-	/**
-	 * @return
+	/* (non-Javadoc)
+	 * @see todo.model.Task#getActualProgress()
 	 */
 	public int getActualProgress() {
-		return actualProgress;
+		return this.actualProgress;
 	}
 
-	/**
-	 * @param actualProgress
+	/* (non-Javadoc)
+	 * @see todo.model.Task#setActualProgress(int)
 	 */
 	public void setActualProgress(int actualProgress) throws TaskException {
 		if(actualProgress < this.actualProgress || actualProgress > 100){
@@ -74,9 +71,8 @@ public class LongTerm extends Task {
 		this.actualProgress = actualProgress;
 	}
 
-	/**
-	 * @return True if the task is late, false otherwise 
-	 *
+	/* (non-Javadoc)
+	 * @see todo.model.Task#isLate()
 	 */
 	public Boolean isLate() {
 		if(this.getIsDone()){return false;}
@@ -95,6 +91,9 @@ public class LongTerm extends Task {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see todo.model.Task#getIntEndingDate()
+	 */
 	@Override
 	public LocalDate getIntEndingDate() {
 		long daysBetween = this.getBeginningDate().until(this.getEndingDate(), ChronoUnit.DAYS);
@@ -106,6 +105,9 @@ public class LongTerm extends Task {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see todo.model.Task#getButtonText()
+	 */
 	@Override
 	public String getButtonText() {
 		return "<HTML><BODY><center>" // behavior of text is done in HTML

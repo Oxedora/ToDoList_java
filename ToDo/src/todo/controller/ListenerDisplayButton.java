@@ -11,6 +11,10 @@ import todo.view.DetailedTask;
 public class ListenerDisplayButton implements ActionListener{
 	private DetailedTask dt;
 	
+	/**
+	 * Enable to display the informations of the new selected task
+	 * @param dt : the panel that display those informations
+	 */
 	public ListenerDisplayButton(DetailedTask dt){
 		super();
 		this.dt = dt;

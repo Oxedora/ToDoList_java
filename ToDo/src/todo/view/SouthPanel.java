@@ -14,6 +14,10 @@ public class SouthPanel extends JPanel {
 	JButton delTask = new JButton("Doom a task");
 	JButton Bilan = new JButton("Done so far...");
 	
+	/**
+	 * Constructor
+	 * This panel contains the buttons to add/delete a task and generate the results
+	 */
 	public SouthPanel(){
 		this.setLayout(new FlowLayout()); // to correctly display the information
 		this.setBackground(Color.darkGray); // adding a color to distinguish it from other parts of other panels
@@ -39,26 +43,44 @@ public class SouthPanel extends JPanel {
 		
 	}
 	
+	/**
+	 * @return button that generate the bilan
+	 */
 	public JButton getBilan() {
 		return Bilan;
 	}
 	
+	/**
+	 * @param bilan : the new button
+	 */
 	public void setBilan(JButton bilan) {
 		Bilan = bilan;
 	}
 	
+	/**
+	 * @return the button to add a task
+	 */
 	public JButton getAddTask() {
 		return addTask;
 	}
 
+	/**
+	 * @param addTask : the new button
+	 */
 	public void setAddTask(JButton addTask) {
 		this.addTask = addTask;
 	}
 
+	/**
+	 * @return the button to delete a task
+	 */
 	public JButton getDelTask() {
 		return delTask;
 	}
 
+	/**
+	 * @param delTask : the new button
+	 */
 	public void setDelTask(JButton delTask) {
 		this.delTask = delTask;
 	}

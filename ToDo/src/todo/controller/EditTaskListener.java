@@ -23,6 +23,12 @@ public class EditTaskListener implements ActionListener{
 	private Vector<Task> inProgress;
 	private Vector<Task> finished;
 	
+	/**
+	 * Enable to edit a task when the button is clicked
+	 * @param center : the panel that contains the relevant view components
+	 * @param inProgress : the list of task in progress
+	 * @param finished : the list of done tasks
+	 */
 	public EditTaskListener(CenterPanel center, Vector<Task> inProgress, Vector<Task> finished){
 		this.center = center;
 		this.inProgress = inProgress;
@@ -40,7 +46,7 @@ public class EditTaskListener implements ActionListener{
 			String[] typesArray = new String[this.center.getDetailedTask().getTypes().size()];
 			for(int i = 0; i < this.center.getDetailedTask().getTypes().size(); i++){typesArray[i] = this.center.getDetailedTask().getTypes().get(i);} // init the array filled with the types
 			JComboBox<String> typesCB = new JComboBox<String>(typesArray); // adding the array of type into a JComboBox for interactions with the user
-			JTextField tProg = new JTextField(this.center.getDetailedTask().getButtonP().getTask().getActualProgress());
+			JTextField tProg = new JTextField(String.valueOf(this.center.getDetailedTask().getButtonP().getTask().getActualProgress()));
 			JTextField tDesc = new JTextField(this.center.getDetailedTask().getButtonP().getTask().getDescription()); //Field to get the description of the task
 			JComboBox<Importance> tImp = new JComboBox<Importance>(imp); //JComboBox to select the desired Importance
 			tImp.setSelectedItem(this.center.getDetailedTask().getButtonP().getTask().getImportance()); //Set to the actual importance
@@ -61,7 +67,7 @@ public class EditTaskListener implements ActionListener{
 			editPan.add(new JLabel("New task type : "));
 			editPan.add(typesCB);
 			if(this.center.getDetailedTask().getButtonP().getTask().getClass().getName() == LongTerm.class.getName()){
-				editPan.add(new JLabel("New task progress"));
+				editPan.add(new JLabel("New task progress : "));
 				editPan.add(tProg);
 			}
 			editPan.add(new JLabel("New description : "));
@@ -74,7 +80,7 @@ public class EditTaskListener implements ActionListener{
 			}
 			editPan.add(new JLabel("New unhappy date : "));
 			editPan.add(tDateEnd);
-
+			
 			//Showing the pop-up
 			int answer = JOptionPane.showConfirmDialog(null, editPan, "The Fate modifier", JOptionPane.OK_CANCEL_OPTION);
 
@@ -92,6 +98,7 @@ public class EditTaskListener implements ActionListener{
 					if(answer == JOptionPane.YES_OPTION || answer == JOptionPane.OK_OPTION){
 						this.center.getDetailedTask().getButtonP().getTask().setTitle(tTitle.getText());
 						this.center.getDetailedTask().getButtonP().getTask().setType(typesCB.getSelectedItem().toString());
+						this.center.getDetailedTask().getButtonP().getTask().setActualProgress(Integer.parseInt(tProg.getText()));
 						this.center.getDetailedTask().getButtonP().getTask().setDescription(tDesc.getText());
 						this.center.getDetailedTask().getButtonP().getTask().setImportance((Importance) tImp.getSelectedItem());
 						this.center.getDetailedTask().getButtonP().getTask().setBeginningDate(LocalDate.parse(tDateBeg.getText()));
@@ -126,6 +133,11 @@ public class EditTaskListener implements ActionListener{
 				}
 				catch(java.time.format.DateTimeParseException e1){
 					JOptionPane.showMessageDialog(null, "Date must be of the form yyyy-mm-dd",
+							"Doom on you", JOptionPane.ERROR_MESSAGE);
+					isokay = false;
+				}
+				catch(java.lang.NumberFormatException e1){
+					JOptionPane.showMessageDialog(null, "Enter a valid number",
 							"Doom on you", JOptionPane.ERROR_MESSAGE);
 					isokay = false;
 				}

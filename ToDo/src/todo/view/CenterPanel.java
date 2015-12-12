@@ -25,6 +25,12 @@ public class CenterPanel extends JPanel {
 	private JList<String> typeList;
 	private Vector<String> types;
 
+	/**
+	 * The panel that hold the two display task panels (done and not done) and the detailed task panel
+	 * @param progressList : list of tasks that aren't done
+	 * @param finishedList : list of tasks that are done
+	 * @param types : list of types
+	 */
 	public CenterPanel(Vector<Task> progressList, Vector<Task> finishedList, Vector<String> types){
 		this.types = types;	
 		this.typeList = new JList<String>(this.types);	
@@ -93,34 +99,58 @@ public class CenterPanel extends JPanel {
 		this.add(scrollDone, BorderLayout.EAST); // Done tasks are displayed in the east side	
 	}
 
+	/**
+	 * @return the panel detailed task
+	 */
 	public DetailedTask getDetailedTask() {
 		return detailedTask;
 	}
 
+	/**
+	 * @param detailedTask : the new detailed task
+	 */
 	public void setDetailedTask(DetailedTask detailedTask) {
 		this.detailedTask = detailedTask;
 	}
 
+	/**
+	 * @return the panel of tasks in progress
+	 */
 	public DisplayTasks getInProgressTasks() {
 		return inProgressTasks;
 	}
 
+	/**
+	 * @param inProgressTasks : the new panel of tasks in progress
+	 */
 	public void setInProgressTasks(DisplayTasks inProgressTasks) {
 		this.inProgressTasks = inProgressTasks;
 	}
 
+	/**
+	 * @return the panel of tasks done
+	 */
 	public DisplayTasks getDoneTasks() {
 		return doneTasks;
 	}
 
+	/**
+	 * @param doneTasks : the new panel of done tasks
+	 */
 	public void setDoneTasks(DisplayTasks doneTasks) {
 		this.doneTasks = doneTasks;
 	}
 	
+	/**
+	 * @return the list of types
+	 */
 	public JList<String> getTypeList() {
 		return typeList;
 	}
 
+	/**
+	 * @param typeList : the list of types
+	 */
 	public void setTypeList(Vector<String> typeList) {
 		this.typeList.removeAll();
 		this.typeList.repaint();
@@ -129,6 +159,9 @@ public class CenterPanel extends JPanel {
 		this.typeList.setListData(types);
 	}
 	
+	/**
+	 * @return the vector of types
+	 */
 	public Vector<String> getTypes(){
 		return this.types;
 	}

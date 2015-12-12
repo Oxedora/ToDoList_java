@@ -24,6 +24,9 @@ public class WindowOrganizer extends JFrame implements WindowListener{
 	CenterPanel center; // new panel for the center part of the frame
 	SouthPanel  south; // new panel for the south part of the frame
 	
+	/**
+	 * The frame that contains all the graphical elements 
+	 */
 	public WindowOrganizer(){
 		
 		this.organizer = new Organizer();
@@ -111,6 +114,10 @@ public class WindowOrganizer extends JFrame implements WindowListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+	 * Save the organizer when closing
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		this.organizer.save();

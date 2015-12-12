@@ -19,6 +19,12 @@ public class ItsDoneListener implements ActionListener{
 	private Vector<Task> inProgress;
 	private Vector<Task> finished;
 	
+	/**
+	 * Enable to set a task to done when the button is clicked
+	 * @param center : the panel that contains all the relevant view components
+	 * @param inProgress : the list of tasks in progress
+	 * @param finished : the list of done tasks
+	 */
 	public ItsDoneListener(CenterPanel center, Vector<Task> inProgress, Vector<Task> finished){
 		super();
 		this.center = center;

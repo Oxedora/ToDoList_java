@@ -27,6 +27,12 @@ public class AddTaskListener implements ActionListener{
 	private CenterPanel center;
 	private Vector<String> types;
  
+	/**
+	 * Enable the button to add a task when clicked
+	 * @param taskList : the list of task in progress
+	 * @param types : the list of types
+	 * @param center : the panel that contains the relevant view components
+	 */
 	public AddTaskListener(Vector<Task> taskList, Vector<String> types, CenterPanel center){
 		super();
 		this.taskList = taskList;

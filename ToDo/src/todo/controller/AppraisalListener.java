@@ -21,6 +21,11 @@ public class AppraisalListener  implements ActionListener{
 	private Vector<Task> inProgress;
 	private Vector<Task> finished;
 
+	/**
+	 * Enable to generate an appraisal when the button is clicked
+	 * @param inProgress : the list of task in progress
+	 * @param finished : the list of task that are done
+	 */
 	public AppraisalListener(Vector<Task> inProgress, Vector<Task> finished) {
 		super();
 		this.inProgress = inProgress;
@@ -101,6 +106,11 @@ public class AppraisalListener  implements ActionListener{
 		}
 	}
 	
+	/**
+	 * @param beg : lower limit date
+	 * @param end : higher limit date
+	 * @return the vector containing all the tasks which have their ending date between beg and end
+	 */
 	public Vector<String> inProgress(LocalDate beg, LocalDate end){
 		Vector<String> tasksToDo = new Vector<String>();
 		for(Task t : this.inProgress){
@@ -113,6 +123,11 @@ public class AppraisalListener  implements ActionListener{
 		return tasksToDo;
 	}
 	
+	/**
+	 * @param beg : lower limit date
+	 * @param end : higher limit date
+	 * @return the number of tasks done in time between beg and end
+	 */
 	public int doneInTime(LocalDate beg, LocalDate end){
 		int doneInTime = 0;
 		for(Task t : this.finished){
@@ -126,6 +141,11 @@ public class AppraisalListener  implements ActionListener{
 		return doneInTime;
 	}
 	
+	/**
+	 * @param beg : lower limit date
+	 * @param end : higher limit date
+	 * @return the number of tasks done late between beg and end
+	 */
 	public int doneLate(LocalDate beg, LocalDate end){
 		int doneLate = 0;
 		for(Task t : this.finished){
@@ -139,6 +159,11 @@ public class AppraisalListener  implements ActionListener{
 		return doneLate;
 	}
 	
+	/**
+	 * @param beg : lower limit date
+	 * @param end : higher limit date
+	 * @return the number of tasks late between beg and end
+	 */
 	public int stillNotDone(LocalDate beg, LocalDate end){
 		int stillNotDone = 0;
 		for(Task t : this.inProgress){

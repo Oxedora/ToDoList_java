@@ -15,6 +15,11 @@ public class DeleteTypeListener implements ActionListener{
 	private CenterPanel center;
 	private Vector<Task> taskList;
 
+	/**
+	 * Enable to delete the selected type when the button is clicked
+	 * @param center : the panel that contains the relevant view components
+	 * @param taskList : the list of tasks
+	 */
 	public DeleteTypeListener(CenterPanel center, Vector<Task> taskList) {
 		super();
 		this.center = center;

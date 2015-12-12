@@ -25,9 +25,10 @@ public class Organizer implements Serializable{
 	}
 
 	/**
-	 * @param inProgress
-	 * @param finished
-	 * @param typesList
+	 * Parameterized constructor
+	 * @param inProgress : the vector of task that aren't done
+	 * @param finished : the vector of task that are done
+	 * @param typesList : the vector of types
 	 */
 	public Organizer(Vector<Task> inProgress, Vector<Task> finished, Vector<String> typesList) {
 		this.inProgress = inProgress;
@@ -36,107 +37,51 @@ public class Organizer implements Serializable{
 	}
 
 	/**
-	 * @param t
-	 * @throws TaskException 
+	 * @return the list of task that aren't done
 	 */
-	public void unfinishedToFinished(Task t) throws TaskException{
-		if(!t.getIsDone()){
-			throw new TaskException(t.getTitle()+" : this task is not done");
-		}
-
-		if(!this.inProgress.contains(t)){
-			throw new TaskException(t.getTitle()+" : no such task in progress");
-		}
-
-		this.inProgress.remove(t);
-		this.finished.add(t);
-	}
-
-	/**
-	 * @param newType
-	 * @throws TaskException 
-	 */
-	public void createType(String newType) throws TaskException{
-		if(this.typesList.contains(newType)){
-			throw new TaskException("This type already exists");
-		}
-
-		this.typesList.add(newType);
-	}
-
-	/**
-	 * @param oldType
-	 * @throws TaskException 
-	 */
-	public void deleteType(String oldType) throws TaskException{
-		if(this.typesList.contains(oldType)){
-			throw new TaskException(oldType+" : no such type");
-		}
-
-		this.typesList.remove(oldType);
-
-		for(Task t : inProgress){
-			if(t.getType() == oldType){
-				t.setType("");
-			}
-		}
-
-		for(Task t : finished){
-			if(t.getType() == oldType){
-				t.setType("");
-			}
-		}
-	}
-
-	/**
-	 * @param oldType
-	 * @param newType
-	 * @throws TaskException 
-	 */
-	public void editType(String oldType, String newType) throws TaskException{
-		if(!this.typesList.contains(oldType)){
-			throw new TaskException(oldType+" : no such type");
-		}
-
-		this.deleteType(oldType);
-		this.createType(newType);
-		for(Task t : inProgress){
-			if(t.getType() == oldType){
-				t.setType(newType);
-			}
-		}
-
-		for(Task t : finished){
-			if(t.getType() == oldType){
-				t.setType(newType);
-			}
-		}
-	}
-
 	public Vector<Task> getInProgress() {
 		return inProgress;
 	}
 
+	/**
+	 * @param inProgress : the new list of undone tasks
+	 */
 	public void setInProgress(Vector<Task> inProgress) {
 		this.inProgress = inProgress;
 	}
 
+	/**
+	 * @return the list of done tasks
+	 */
 	public Vector<Task> getFinished() {
 		return finished;
 	}
 
+	/**
+	 * @param finished : the new list of done tasks
+	 */
 	public void setFinished(Vector<Task> finished) {
 		this.finished = finished;
 	}
 
+	/**
+	 * @return the list of types
+	 */
 	public Vector<String> getTypesList() {
 		return typesList;
 	}
 
+	/**
+	 * @param typesList : the new list of types
+	 */
 	public void setTypesList(Vector<String> typesList) {
 		this.typesList = typesList;
 	}
 
+	/**
+	 * Enable the recovery of the organizer class,
+	 * for a new instance of the windoworganizer
+	 */
 	public void load(){
 		try{
 			FileInputStream saveName = new FileInputStream("saveOrganizer");
@@ -175,6 +120,10 @@ public class Organizer implements Serializable{
 
 	}
 
+	/**
+	 * Enable the serialization of the class organizer
+	 * to be recovered later
+	 */
 	public void save(){
 		try{
 			FileOutputStream saveName = new FileOutputStream("saveOrganizer");

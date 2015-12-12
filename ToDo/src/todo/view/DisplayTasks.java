@@ -17,7 +17,12 @@ public class DisplayTasks extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String title;
 
-	/* Init all the buttons containing the tasks */
+	/**
+	 * Init all the buttons containing the tasks
+	 * @param taskList : the list of task to be displayed
+	 * @param title : the title of the panel
+	 * @param dt : the panel where the task must display his informations
+	 */
 	public DisplayTasks(Vector<Task> taskList, String title, DetailedTask dt) {
 		super();
 		this.title = title;
@@ -37,6 +42,10 @@ public class DisplayTasks extends JPanel {
 		}
 	}
 
+	/**
+	 * @param taskList : the vector to sort
+	 * @param dt : the panel where information display
+	 */
 	public void sortTask(Vector<Task> taskList, DetailedTask dt){
 		this.removeAll();
 		this.repaint();
