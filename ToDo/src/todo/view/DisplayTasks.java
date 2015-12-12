@@ -56,8 +56,6 @@ public class DisplayTasks extends JPanel {
 		rowTitle.setAlignmentX(CENTER_ALIGNMENT);
 
 		for(Task t : taskList){ 
-			System.out.println(t.getTitle());
-			// for every tasks, display its title and its interval of time in a button
 			ButtonPushed button = new ButtonPushed(t, t.getButtonText());
 			button.addActionListener(new ListenerDisplayButton(dt));
 			button.setAlignmentX(Component.CENTER_ALIGNMENT); // center the button in the displayed list
